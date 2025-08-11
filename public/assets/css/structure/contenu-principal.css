@@ -1,0 +1,50 @@
+.contenu-principal {
+  padding: var(--espace-md) 0;
+}
+
+.contenu-principal-header {
+  text-align: center;
+  margin-bottom: var(--espace-xl);
+}
+
+.contenu-principal-titre {
+  color: var(--bleu-principale);
+  margin-bottom: var(--espace-sm);
+}
+
+.contenu-principal-sutitre {
+  font-size: 1.125rem;
+  color: var(--gris-moyen);
+}
+
+/*accueil*/
+
+.contenu-principal-hero{
+    color: var(--blanc);
+    padding: var(--espace-2xl) 0;
+    text-align: center;
+    color:var(--bleu-principale) ;
+}
+
+.contenu-principal-hero h2{ 
+  font-size: clamp(var(--taille-texte-400), 4vw, var(--taille-texte-700));
+}
+
+.contenu-principal-herocontent {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+
+.contenu-principal-herotext {
+    font-size: var(--taille-texte-300);
+    margin-bottom: var(--espace-xl);
+    opacity: 0.9;
+}
+
+.contenu-principal-herocta {
+    display: flex;
+    justify-content: center;
+    gap: var(--espace-md);
+    flex-wrap: wrap;
+}

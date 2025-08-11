@@ -1,0 +1,108 @@
+.grille {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(320px,1fr));
+    gap: var(--espace-lg);
+}
+
+.grille_detail {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: var(--espace-xl);
+    margin-bottom: var(--espace-xl);
+        & h2,
+        & h3 {
+            margin-bottom: var(--espace-sm);
+        }
+        & h2 {
+            font-size: clamp(var(--taille-texte-300) ,4vw,var(--taille-texte-500));
+        }
+        & h3 {
+            font-size: var(--taille-texte-200);
+        }
+}
+
+/* Fiche detaille */
+.grille-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    gap: var(--espace-md);
+    margin-bottom: var(--espace-lg);
+}
+
+.grille-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espace-xs);
+        & .label {
+            text-transform: uppercase;
+            font-size: var(--taille-texte-50);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: var(--gris-fonce);
+        }
+        & .value {
+            font-size: var(--taille-texte-100);
+            color: var(--bleu-principale);
+        }
+}
+
+.grille-condition{
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    font-size: var(--taille-texte-50);
+    font-weight: 500;
+        & > span{  
+            padding: var(--espace-xs) var(--espace-sm);
+        }
+        & .excellente{
+            color: var(--blue-secondaire);
+            background: var(--bleu-clair);  
+        }
+        & .certifie{  
+            font-weight: 600;
+            color: var(--gris-fonce);
+            background: var(--separateur);
+        }
+}  
+
+.grille-description {
+    & p {
+        margin-bottom: var(--espace-sm);
+        line-height: 1.7;
+    }
+}
+
+/**/
+.grille-content{ 
+    background-color:rgba(219, 234, 254, 0.2); 
+    padding: var(--espace-sm) 0;
+}
+
+.grille-header{
+    margin-bottom: var(--espace-xl);  
+    text-align: center;
+}
+
+.grille-title {
+    margin-bottom: var(--espace-md);
+    margin-bottom: var(--espace-sm);
+}
+
+.grille-subtitle {
+    color: var(--gris-moyen);
+    font-size: var(--taille-texte-200);
+    max-width: 600px;
+    margin: auto;
+}
+
+.grille-btn{ text-align: center; margin: var(--espace-xl);}
+
+.grille-twin{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--espace-xl);
+}
+
+.grille-twin .contenu > p{
+    padding: var(--espace-sm) 0 ;
+}

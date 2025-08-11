@@ -1,0 +1,135 @@
+.hide {
+    display: none;
+}
+
+.resultat-nbr {
+    font-size: 14px;
+    color: var(--gris-moyen);
+}
+
+.sort-options {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tri-select {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: white;
+}
+
+aside {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espace-md);
+}
+
+.separateur {
+    opacity: 0.6;
+}
+
+.sticky-header {
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 10px 20px;
+    min-width: 100%;
+    background-color: var(--bleu-principale);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.header-sticky-active .nav_principale-site {
+    margin-top: 80px;
+}
+/*Page connexion - devenir membre */
+.auth-switch{
+    text-align: center;
+    margin-top: var(--espace-md);
+}
+.switch-btn {
+    background: none;
+    border: none;
+    color: var(--bleu-principale);
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: var(--police-principale);
+    font-size: var(--taille-texte-50);
+}
+
+/* Informations sur les avantages */
+.benefits {
+    background: var(--bleu-clair);
+    border-radius: var(--radius-sm);
+    padding: var(--espace-md);
+    margin-bottom: var(--espace-lg);
+}
+
+.benefits h4 {
+    color: var(--bleu-principale);
+    font-size: var(--taille-texte-200);
+    margin-bottom: var(--espace-sm);
+}
+
+.benefits ul {
+    list-style: none;
+    padding: 0;
+}
+
+.benefits li {
+    padding: var(--espace-xs) 0;
+    color: var(--gris-fonce);
+    display: flex;
+    align-items: center;
+    gap: var(--espace-xs);
+}
+
+.benefits li i {
+    color: var(--bleu-principale);
+    width: 16px;
+}
+
+/*Validation*/
+.message {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.success {
+  background-color: #e8f5e9;
+  color: #388e3c;
+  border-left: 4px solid #388e3c;
+}
+
+.error {
+  background-color: #ffebee;
+  color: #c62828;
+  border-left: 4px solid #c62828;
+  padding-left: 5px;
+  margin-bottom: 15px;
+}
+
+.error ul li{ list-style: none;}
+
+
+/*Page erreur */
+.section_erreur{
+    max-width: 600px;
+    margin: auto;
+    border:1px solid #003366;
+    border-radius: 3px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.section_erreur .btn.add {  
+  display: block;
+  text-align: center;
+}

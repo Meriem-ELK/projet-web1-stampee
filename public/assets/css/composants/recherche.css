@@ -1,0 +1,19 @@
+.recherche-container {
+    flex-basis: 100%;
+    max-width: 665px;
+}
+
+.recherche-form {
+    display: flex;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--blanc);
+    box-shadow: var(--ombre-legere);
+}
+
+.recherche-input {
+    flex-basis: 100%;
+    padding: var(--espace-sm) var(--espace-md);
+    border: none;
+    font-size: 0.875rem;
+}
