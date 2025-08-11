@@ -1,0 +1,75 @@
+.btn {
+    padding: var(--espace-xs) var(--espace-md);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: var(--blanc);
+    background: var(--accent-rouge);
+    cursor: pointer;
+        &:hover {
+            background: var(--bordeaux);
+            color: var(--blanc);
+        }
+}
+
+.btn-premium {
+    border: 2px solid var(--accent-rouge);
+    background-color: transparent;
+        &:hover {
+            border: 2px solid var(--bordeaux);
+        }
+}
+
+.btn-recherche {
+    border-radius: 0;
+    background: var(--blue-secondaire);
+        &:hover {
+            background: var(--royal-navy);
+        }
+}
+
+.btn-tab {
+    padding: var(--espace-md) var(--espace-lg);
+    border-bottom: 3px solid transparent;
+    font-size: 1.125rem;
+    color: var(--gris-moyen);
+    background: none;
+        &.active {
+            border-bottom-color: var(--accent-rouge);
+            color: var(--bleu-principale);
+        }
+        &:hover {
+            color: var(--bleu-principale);
+            background-color: transparent;
+        }
+}
+
+.btn-devise {
+    padding: var(--espace-xs) var(--espace-sm);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: 0.875rem;
+    background: transparent;
+        &:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+}
+
+.btn.voir {
+    padding: var(--espace-xs);
+    border: 1px solid #d1d5db;
+    border-radius: var(--radius-sm);
+    color: var(--gris-fonce);
+    background: var(--gris-clair);
+    transition: all 0.2s ease;
+    cursor: pointer;
+        &:hover {
+            background: #e2e8f0;
+        }
+}
+
+/* Onglets pour enchères en cours / archivées */
+.btn-tabActions {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--espace-md);
+    border-bottom: 2px solid var(--gris-clair);
+}

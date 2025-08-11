@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
+/*___________________________  Base */
+@import url("base/root.css");
+@import url("base/general.css");
+
+
+/*___________________________   Mise en page */
+@import url("structure/nav.css");
+@import url("structure/header.css");
+@import url("structure/contenu-principal.css");
+@import url("structure/grille.css");
+@import url("structure/carte.css");
+@import url("structure/filtre.css");
+@import url("structure/pied-de-site.css");
+
+
+/*___________________________   Composants */
+@import url("composants/btn.css");
+@import url("composants/fil-ariane.css");
+@import url("composants/galerie.css");
+@import url("composants/recherche.css");
+@import url("composants/form.css");
+
+/*___________________________   Exceptions */
+@import url("exceptions.css");
+@import url("mobile.css");
