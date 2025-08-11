@@ -9,6 +9,7 @@ Route::get('/home', 'HomeController@index');
 Route::get('/home/index', 'HomeController@index');
 
 
+
 // Routes pour les utilisateurs
 Route::get('/user/create', 'UserController@create');
 Route::post('/user/store', 'UserController@store');
