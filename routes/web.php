@@ -18,4 +18,8 @@ Route::get('/login', 'AuthController@index');
 Route::post('/login', 'AuthController@store');
 Route::get('/logout', 'AuthController@delete');
 
+
+// Routes Profil membre
+Route::get('/profil', 'ProfilController@index');
+
 Route::dispatch();
