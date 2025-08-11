@@ -1,0 +1,76 @@
+.galerie-enchere {
+        position: relative;
+        padding: var(--espace-lg);
+        text-align: center;
+        background: var(--gris-clair);
+        & span {
+            display: block;
+            font-size: var(--taille-texte-25);
+        }
+        & picture {
+                & {
+                    display: grid;
+                    margin-bottom: var(--espace-xs);
+                    transition: transform 0.3s ease;
+                    cursor: zoom-in;
+                    grid-column: 1;
+                    grid-row: 1;
+                }
+
+                & img {
+                    height: 20rem;
+                    min-width: 100%;
+                    object-fit: cover;
+                    object-position: center;
+                }
+        }
+        & .zoom {
+                display: grid;
+                position: relative;
+                grid-template-columns: 1fr;
+                
+                & :where(.zoom-btn) {
+                    z-index: 1;
+                    align-self: flex-start;
+                    width: 40px;
+                    height: 40px;
+                    margin: var(--espace-xs);
+                    border: none;
+                    border-radius: 50%;
+                    color: var(--blanc);
+                    background: rgba(0, 0, 0, 0.7);
+                    cursor: pointer;
+                    grid-column: 1;
+                    grid-row: 1;
+                    justify-self: end;
+                }
+        }
+}
+
+.galerie-min {
+    display: flex;
+    gap: var(--espace-xs);
+    margin-top: var(--espace-md);
+    padding-bottom: var(--espace-xs);
+    overflow-x: auto;
+}
+
+.galerie-miniature {
+    height: 3rem;
+    min-width: 2rem;
+    border: 1px solid transparent;
+    overflow: hidden;
+    cursor: pointer;
+        & img {
+            height: 3rem;
+            min-width: 2rem;
+            transition: transform 0.3s ease,box-shadow 0.3s ease;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        &.active,
+        &:hover {
+            border-color: var(--bleu-principale);
+        }
+}
