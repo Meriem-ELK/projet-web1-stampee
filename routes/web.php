@@ -9,4 +9,13 @@ Route::get('/home', 'HomeController@index');
 Route::get('/home/index', 'HomeController@index');
 
 
+// Routes pour les utilisateurs
+Route::get('/user/create', 'UserController@create');
+Route::post('/user/store', 'UserController@store');
+
+// Routes d'authentification
+Route::get('/login', 'AuthController@index');
+Route::post('/login', 'AuthController@store');
+Route::get('/logout', 'AuthController@delete');
+
 Route::dispatch();
