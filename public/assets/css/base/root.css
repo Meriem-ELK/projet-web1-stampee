@@ -1,0 +1,45 @@
+:root {
+  /* Couleurs principales - Bleu et Rouge selon Lord Stampee */
+  --bleu-principale: #1e3a8a; 
+  --blue-secondaire: #0057b8;  
+  --accent-rouge: #dc2626;
+  --royal-navy: #1e40af;
+  --bordeaux: #991b1b;
+  --separateur: #d4af37;
+
+  /* Couleurs neutres classiques */
+  --gris-clair: #f8fafc; 
+  --gris-moyen: #64748b; 
+  --gris-fonce: #334155;
+  --bleu-clair:#dbeafe;
+  --blanc :#ffffff;
+
+  /* Taille de la typographie */
+  --taille-texte-25: 0.694rem;
+  --taille-texte-50: 0.833rem;
+  --taille-texte-100: 1rem;
+  --taille-texte-200: 1.2rem;
+  --taille-texte-300: 1.44rem;
+  --taille-texte-400: 1.728rem;
+  --taille-texte-500: 2.074rem;
+  --taille-texte-600: 2.488rem;
+  --taille-texte-700: 2.986rem;
+
+  /* Espacement */
+  --espace-xs: 0.5rem;
+  --espace-sm: 1rem;
+  --espace-md: 1.5rem;
+  --espace-lg: 2rem;
+  --espace-xl: 3rem;
+  --espace-2xl: 4rem;
+
+  /* Typographie */
+  --police-principale: "Raleway", sans-serif;
+  --font-titre: "Playfair Display", serif;
+
+  /* Bordures et ombres */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --ombre-legere: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --ombre-moyenne: 0 4px 12px rgba(30, 58, 138, 0.15);
+}
