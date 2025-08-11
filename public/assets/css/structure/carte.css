@@ -1,0 +1,191 @@
+/* Carte des enchères */
+.carte {
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--blanc);
+    transition: all 0.2s ease;
+        &:hover {
+            box-shadow: var(--ombre-moyenne);
+            transform: translateY(-2px);
+        }
+}
+
+.carte-image {
+    display: grid;
+    position: relative;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-content: center;
+     
+        & img {
+            height: 230px;
+            min-width: 100%;
+            transition: transform 0.3s ease,box-shadow 0.3s ease;
+            grid-column: 1;
+            grid-row: 1 / -1;
+            object-fit: cover;
+            object-position: center;
+           &.actualite{ height: 150px;}
+        }
+
+}
+
+.carte-contenu {
+    padding: var(--espace-md);
+        & a{
+            text-align: right;
+            display: block;
+                &:hover{ 
+                    color: var(--accent-rouge);
+                }
+        }
+}
+
+.carte-titre {
+    margin-bottom: var(--espace-xs);
+    font-family: var(--font-titre);
+    font-size: 1.25rem;
+    color: var(--bleu-principale);
+}
+
+.carte-details {
+        margin-bottom: var(--espace-sm);
+        font-size: 0.875rem;
+        color: var(--gris-moyen);
+            & li {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+}
+
+.carte-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--espace-md);
+    padding: var(--espace-sm);
+    border-radius: var(--radius-sm);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--accent-rouge);
+    background: var(--gris-clair);
+}
+
+.carte-temps {
+    font-size: 0.875rem;
+    color: var(--gris-moyen);
+}
+
+.carte-actions {
+    display: flex;
+    gap: var(--espace-sm);
+    justify-content: space-between;
+}
+
+/* Badge "Coup de coeur du Lord" */
+.carte-lordFavorite {
+    z-index: 2;
+    align-self: start;
+    margin: 20px;
+    padding: var(--espace-xs) var(--espace-sm);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--blanc);
+    background: var(--bordeaux);
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+}
+
+/*Fiche details */
+.carte_fiche {
+    margin-top: 0;
+    padding: var(--espace-lg);
+    border-radius: var(--radius-md);
+    background: var(--blanc);
+    box-shadow: var(--ombre-moyenne);
+        & .carte-lordFavorite {
+            margin: 0 0 var(--espace-md) 0;
+            min-width: 100%;
+        }
+        & .carte-actions button {
+            flex-basis: 50%;
+        }
+        & .fiche-details :where(.details) {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: var(--espace-sm) 0;
+            border-bottom: 1px solid var(--bleu-clair);
+        }
+        & .info a, 
+        & .info{ 
+            padding-left: 0px; 
+            text-decoration: underline; 
+            font-size: 14px;
+        }
+        & .info { text-decoration: none;}
+}
+
+/* (Status) */
+.carte_fiche-status {
+    display: flex;
+    align-items: center;
+    gap: var(--espace-sm);
+    margin-bottom: var(--espace-md);
+        & .live {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-rouge);
+            animation: pulse 2s infinite;
+        }
+        & .texte {
+            text-transform: uppercase;
+            font-size: var(--taille-texte-50);
+            font-weight: 600;
+            color: var(--accent-rouge);
+        }
+}
+
+/* (Prix)*/
+.carte_fiche-prix {
+    margin-bottom: var(--espace-lg);
+    text-align: center; 
+        & .prixActuelle {
+            margin-bottom: var(--espace-xs);
+            font-family: var(--font-titre);
+            font-size: var(--taille-texte-600);
+            font-weight: 700;
+            color: var(--bleu-principale);
+        }
+        & .prixMin {
+            font-size: var(--taille-texte-100);
+            color: var(--gris-moyen);
+        }
+}
+
+/* (Temps) */
+.carte_fiche-temps {
+        margin-bottom: var(--espace-lg);
+        padding: var(--espace-md);
+        border-radius: var(--radius-sm);
+        text-align: center;
+        background: var(--gris-clair);
+        & .label {
+            margin-bottom: var(--espace-xs);
+            font-size: var(--taille-texte-50);
+            color: var(--gris-moyen);
+        }
+        & .temps {
+            font-family: var(--font-titre);
+            font-size: var(--taille-texte-300);
+            font-weight: 600;
+            color: var(--accent-rouge);
+        }
+}

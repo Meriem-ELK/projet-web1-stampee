@@ -1,0 +1,32 @@
+/* Filtres de recherche rapide */
+.filtre-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--espace-md);
+    justify-content: space-between;
+    margin-bottom: var(--espace-xl);
+    padding: var(--espace-md);
+    border-radius: var(--radius-md);
+    background: var(--gris-clair);
+}
+
+.filtre-groupe {
+    display: flex;
+    align-items: center;
+    gap: var(--espace-xs);
+}
+
+.filtre-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--gris-fonce);
+}
+
+.filtre-select {
+    padding: var(--espace-xs) var(--espace-sm);
+    border: 1px solid #d1d5db;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    background: var(--blanc);
+}
