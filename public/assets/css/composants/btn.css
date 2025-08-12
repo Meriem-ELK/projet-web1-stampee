@@ -73,3 +73,28 @@
     margin-bottom: var(--espace-md);
     border-bottom: 2px solid var(--gris-clair);
 }
+
+.btn.delete {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+}
+
+.btn.delete:hover {
+  background-color: #ffcdd2;
+}
+
+
+.btn.annuler {
+  background-color: #f8f9fa;
+  color: #003366;
+  border: 1px solid #003366;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+}
+
+.btn.annuler:hover {
+  background-color: #e9ecef;
+}

@@ -10,28 +10,6 @@ class View {
         $loader = new FilesystemLoader('views');
         $twig = new Environment($loader);
 
-
-    //     // Ajout du filtre personnalisé pour supprimer les accents
-    //    $twig->addFilter(new TwigFilter('sans_accents', function ($string) {
-    //             // Tableau de remplacement manuel
-    //                 $accents = [
-    //                     'à' => 'a', 'â' => 'a', 'ä' => 'a',
-    //                     'é' => 'e', 'è' => 'e', 'ê' => 'e', 'ë' => 'e',
-    //                     'î' => 'i', 'ï' => 'i',
-    //                     'ô' => 'o', 'ö' => 'o',
-    //                     'ù' => 'u', 'û' => 'u', 'ü' => 'u',
-    //                     'ç' => 'c',
-    //                     'À' => 'A', 'Â' => 'A', 'Ä' => 'A',
-    //                     'É' => 'E', 'È' => 'E', 'Ê' => 'E', 'Ë' => 'E',
-    //                     'Î' => 'I', 'Ï' => 'I',
-    //                     'Ô' => 'O', 'Ö' => 'O',
-    //                     'Ù' => 'U', 'Û' => 'U', 'Ü' => 'U',
-    //                     'Ç' => 'C'
-    //                 ];
-    //                 return strtr($string, $accents);
-    //             }));
-
-
         // Globals disponibles dans toutes les vues
         $twig->addGlobal('asset', ASSET);
         $twig->addGlobal('base', BASE);

@@ -133,3 +133,10 @@ aside {
   display: block;
   text-align: center;
 }
+
+.profil_informations{ 
+    display: flex; 
+    justify-content: space-between; 
+    gap: 10px; 
+    padding: var(--espace-xs) 0;
+}

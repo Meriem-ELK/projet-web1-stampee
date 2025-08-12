@@ -2,6 +2,4 @@
 
 ## Objectifs de cette branche
 
-- Implémentation de l’architecture MVC
-- Configuration de l’autoloader
-- Mise en place du routeur
+- Créer la page profil avec les fonctionnalités de modification et de suppression.
