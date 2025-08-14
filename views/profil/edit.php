@@ -83,7 +83,7 @@
            
             <div class="form__GroupBtn">
                 <a class="btn annuler" href="{{base}}/">
-                    Annuler
+                    <i class="fas fa-times"></i> Annuler
                 </a>
                 <input class="btn" type="submit" value="Enregistrer">
             </div>

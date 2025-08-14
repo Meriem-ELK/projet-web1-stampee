@@ -4,7 +4,8 @@
             "App\\Controllers\\": "controllers/",
             "App\\Models\\": "models/",
             "App\\Routes\\": "routes/",
-            "App\\Providers\\": "Providers/"
+            "App\\Providers\\": "Providers/",
+            "App\\Library\\": "Library/"
         }
     },
     "require": {

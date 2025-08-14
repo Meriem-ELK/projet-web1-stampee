@@ -140,3 +140,33 @@ aside {
     gap: 10px; 
     padding: var(--espace-xs) 0;
 }
+
+.image-preview {
+    margin-top: 10px;
+}
+
+.preview-image {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    text-align: center;
+    width: 120px;
+    background: #f9f9f9;
+}
+
+.preview-image img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+.preview-image p {
+    font-size: 11px;
+    margin: 5px 0 0 0;
+    word-break: break-all;
+}
+
+.upload-info strong {
+    color: #e74c3c;
+}
