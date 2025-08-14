@@ -1,0 +1,10 @@
+# Ce fichier redirige toutes les requêtes vers index.php
+
+# Activer le module de réécriture d'URL
+# Rediriger toutes les requêtes qui ne correspondent pas à un fichier ou dossier existant
+# vers index.php avec le paramètre 'route' contenant l'URL demandée
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
