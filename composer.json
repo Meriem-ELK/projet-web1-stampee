@@ -4,11 +4,11 @@
             "App\\Controllers\\": "controllers/",
             "App\\Models\\": "models/",
             "App\\Routes\\": "routes/",
-            "App\\Providers\\": "Providers/",
-            "App\\Library\\": "Library/"
+            "App\\Providers\\": "Providers/"
         }
     },
     "require": {
-        "twig/twig": "^3.21"
+        "twig/twig": "^3.21",
+        "intervention/image": "^3.11"
     }
 }

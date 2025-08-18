@@ -5,6 +5,7 @@ use App\Providers\View;
 use App\Providers\Auth;
 use App\Providers\Validator;
 use App\Models\User;
+use App\Models\Timbre; 
 
 class ProfilController{
     
@@ -12,19 +13,27 @@ public function index(){
     Auth::session();
     
     $user = new User();
+    $timbre = new Timbre();
+    
     // Récupérer les données de l'utilisateur par son ID
     $utilisateur = $user->selectId($_SESSION['id_utilisateur']);
     
+    // Récupérer tous les timbres créés par cet utilisateur
+    $mesTimbres = $timbre->getTimbresByUser($_SESSION['id_utilisateur']);
+    
     // Si l'utilisateur existe dans la base de données
     if($utilisateur){
-        return View::render('profil/index', ['utilisateur'=>$utilisateur]);
+        return View::render('profil/index', [
+            'utilisateur' => $utilisateur,
+            'mesTimbres' => $mesTimbres 
+        ]);
     } else {
         return View::render('error', ['message'=>"Erreur - Utilisateur introuvable."]);
     }
 }
 
 
-/*------------------------------- Edit Form */
+/*--------------------------------------------- Edit Form */
 public function pageEdit(){
     Auth::session();
     
@@ -44,8 +53,7 @@ public function pageEdit(){
     }
 }
 
-/*------------------------------- Update */
-// Traite la modification du profil utilisateur
+/*--------------------------------------------- Update */
 public function edit($data){
     Auth::session();
     
@@ -92,9 +100,11 @@ public function edit($data){
             
             // Si la mise à jour a réussi
             if($utilisateurAjour){
-                // Récupérer les nouvelles données et afficher le profil
-                $utilisateur = $user->selectId($_SESSION['id_utilisateur']);
-                return View::render('profil/index', ['utilisateur'=>$utilisateur]);
+                // Mettre à jour les données de session si nécessaire
+                $_SESSION['nom'] = $data['nom'];
+                $_SESSION['prenom'] = $data['prenom'];
+                
+                return View::redirect('profil');
             } else {
                 return View::render('error', ['message'=>"Les modifications ont échoué"]);
             }
@@ -112,8 +122,7 @@ public function edit($data){
     }
 }
 
-/*------------------------------- Delete */
-// Supprime le compte utilisateur
+/*---------------------------------------------  Delete */
 public function delete(){
     Auth::session();
     
@@ -128,11 +137,20 @@ public function delete(){
             // Récupérer l'ID à supprimer
             $id = $_GET["id"];
             $user = new User;
+            $timbre = new Timbre;
+            
+            // Supprimer d'abord tous les timbres de l'utilisateur
+            $mesTimbres = $timbre->getTimbresByUser($id);
+            foreach ($mesTimbres as $timbreData) {
+                // Supprimer les images du timbre
+                $timbre->deleteTimbreImages($timbreData['id_timbre']);
+                // Supprimer le timbre
+                $timbre->delete($timbreData['id_timbre']);
+            }
             
             // Supprimer l'utilisateur de la base de données
             $utilisateurSupprime = $user->delete($id);
             
-            // Si la suppression a réussi
             if($utilisateurSupprime){
                 // Détruire la session et rediriger vers la page de connexion
                 session_destroy();

@@ -30,12 +30,12 @@ Route::get('/profil/delete', 'ProfilController@delete');
 
 // Routes Timbre
 Route::get('/timbre', 'TimbreController@index');
-Route::get('/timbre/show/{id}', 'TimbreController@show');
+Route::get('/timbre/show', 'TimbreController@show');
 Route::get('/timbre/create', 'TimbreController@create');
 Route::post('/timbre/store', 'TimbreController@store');
-Route::get('/timbre/edit/{id}', 'TimbreController@edit');
-Route::post('/timbre/edit/{id}', 'TimbreController@update');
-Route::post('/timbre/delete/{id}', 'TimbreController@delete');
+Route::get('/timbre/edit', 'TimbreController@edit');
+Route::post('/timbre/edit', 'TimbreController@update');
+Route::post('/timbre/delete', 'TimbreController@delete');
 
 
 

@@ -43,59 +43,5 @@ class User extends CRUD {
         }
     }
 
-    
-
-/**
-     * Vérifie si un utilisateur a des données liées.
-*/
-    // public function hasRelatedData($userId) {
-    //     // Vérifier s'il a des timbres créés
-    //     $sqlTimbres = "SELECT COUNT(*) as count FROM timbres WHERE id_utilisateur_createur = :user_id";
-    //     $stmtTimbres = $this->prepare($sqlTimbres);
-    //     $stmtTimbres->bindValue(':user_id', $userId);
-    //     $stmtTimbres->execute();
-    //     $timbres = $stmtTimbres->fetch();
-        
-    //     // Vérifier s'il a des mises
-    //     $sqlMises = "SELECT COUNT(*) as count FROM mises WHERE id_utilisateur = :user_id";
-    //     $stmtMises = $this->prepare($sqlMises);
-    //     $stmtMises->bindValue(':user_id', $userId);
-    //     $stmtMises->execute();
-    //     $mises = $stmtMises->fetch();
-        
-    //     // Vérifier s'il a des favoris
-    //     $sqlFavoris = "SELECT COUNT(*) as count FROM favoris WHERE id_utilisateur = :user_id";
-    //     $stmtFavoris = $this->prepare($sqlFavoris);
-    //     $stmtFavoris->bindValue(':user_id', $userId);
-    //     $stmtFavoris->execute();
-    //     $favoris = $stmtFavoris->fetch();
-        
-    //     // Vérifier s'il a des commentaires
-    //     $sqlCommentaires = "SELECT COUNT(*) as count FROM commentaires WHERE id_utilisateur = :user_id";
-    //     $stmtCommentaires = $this->prepare($sqlCommentaires);
-    //     $stmtCommentaires->bindValue(':user_id', $userId);
-    //     $stmtCommentaires->execute();
-    //     $commentaires = $stmtCommentaires->fetch();
-        
-    //     return ($timbres['count'] > 0 || $mises['count'] > 0 || $favoris['count'] > 0 || $commentaires['count'] > 0);
-    // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 ?>

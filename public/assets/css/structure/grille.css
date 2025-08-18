@@ -54,10 +54,31 @@
         & > span{  
             padding: var(--espace-xs) var(--espace-sm);
         }
-        & .excellente{
-            color: var(--blue-secondaire);
-            background: var(--bleu-clair);  
+        & .condition-excellente{
+            color: var(--blanc);
+            background-color: #059669;   
         }
+
+        & .condition-parfaite{
+            background-color:var(--royal-navy);
+            color: var(--blanc);
+        }
+
+        & .condition-bonne{
+           background-color: var(--blue-secondaire);
+           color: var(--blanc);
+        }
+
+        & .condition-moyenne{
+            color: var(--blue-secondaire);
+            background-color: var(--bleu-clair);  
+        }
+
+        & .condition-endommagé{
+            color: var(--blanc);
+           background-color: var(--accent-rouge);  
+        }
+
         & .certifie{  
             font-weight: 600;
             color: var(--gris-fonce);

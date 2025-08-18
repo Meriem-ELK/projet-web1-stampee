@@ -9,12 +9,10 @@ use App\Models\User;
 class AuthController{
     
 
-
     // Méthode qui affiche la page de connexion
     public function index(){
         return View::render('auth/index');
     }
-
 
     // Méthode qui traite la soumission du formulaire de connexion
     public function store($data){
