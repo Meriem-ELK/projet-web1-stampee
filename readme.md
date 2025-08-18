@@ -2,4 +2,6 @@
 
 ## Objectifs de cette branche
 
-- Ajouter une vue détaillée pour chaque enchère, avec toutes les informations.
+- Développer de la méthode dans le modèle Enchere pour récupérer les enchères "Coups de cœur".
+- Intégrer de afficher  les "Coups de cœur du Lord" sur la page d'accueil.
+
