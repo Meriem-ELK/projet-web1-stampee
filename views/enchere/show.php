@@ -131,12 +131,12 @@
             <!-- Carte principale de l'enchère -->
             <div class="carte_fiche">
                 <!-- Coup de coeur du Lord (si applicable) -->
-                {% if enchere.coup_coeur_lord %}
-                    <div class="carte-lordFavorite">
-                        <i class="fas fa-crown"></i>
-                        Coup de cœur du Lord
-                    </div>
-                {% endif %}
+                {% if enchere.coup_coeur_lord == 1 %}
+                            <div class="carte-lordFavorite">
+                                <i class="fas fa-crown"></i>
+                                Coup de cœur du Lord
+                            </div>
+                 {% endif %}
 
                 <!-- Status de l'enchère -->
                 <div class="carte_fiche-status">
@@ -173,11 +173,11 @@
             <div class="carte_fiche">
                 <h3>Participer à l'enchère</h3>
                 <form class="carte-actions">
-                    <button type="button" class="btn" onclick="location.href='{{base}}/auth/login'">
+                    <button type="button" class="btn" onclick="location.href='{{base}}/login'">
                         <i class="fas fa-sign-in-alt"></i>
                         Se connecter
                     </button>
-                    <button type="button" class="btn voir" onclick="location.href='{{base}}/auth/register'">
+                    <button type="button" class="btn voir" onclick="location.href='{{base}}/user/create'">
                         <i class="fas fa-user-plus"></i>
                         Devenir membre
                     </button>

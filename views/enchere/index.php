@@ -15,7 +15,7 @@
                 <div class="carte">
                     <div class="carte-image">
                         <!-- Affichage du "Coup de coeur du Lord" si applicable -->
-                        {% if enchere.coup_coeur_lord %}
+                        {% if enchere.coup_coeur_lord == 1 %}
                             <div class="carte-lordFavorite">
                                 <i class="fas fa-crown"></i>
                                 Coup de cœur du Lord
@@ -23,13 +23,8 @@
                         {% endif %}
                         
                         <!-- Image du timbre -->
-                        {% if enchere.premiere_image %}
                             <img src="{{base}}/public/assets/img/timbres/{{ enchere.premiere_image }}" 
                                  alt="{{ enchere.nom_timbre }}">
-                        {% else %}
-                            <img src="{{base}}/public/assets/img/default-timbre.jpg" 
-                                 alt="Image non disponible">
-                        {% endif %}
                     </div>
                     
                     <div class="carte-contenu">

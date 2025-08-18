@@ -11,7 +11,6 @@ class EnchereController {
 
         $enchere = new Enchere;
         $encheres = $enchere->getEncheresWithDetails();
-        $nombreEncheres = count($encheres);
         
        // Le temps restant à chaque enchère
         foreach ($encheres as &$uneEnchere) {
@@ -19,8 +18,7 @@ class EnchereController {
         }
 
         return View::render('enchere/index', [
-            'encheres' => $encheres,
-            'nombreEncheres' => $nombreEncheres
+            'encheres' => $encheres
         ]);
     }
 

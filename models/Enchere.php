@@ -125,5 +125,48 @@ class Enchere extends CRUD {
             return $diff->i . 'min restantes';
         }
     }
+
+
+    /**
+     * Récupère les enchères "Coups de cœur du Lord"
+    */
+public function getEncheresCoupeCoeur($limit = 3) {
+    $limit = (int)$limit;
+    
+    $sql = "SELECT e.*, 
+                   t.nom as nom_timbre,
+                   t.date_creation,
+                   t.certifie,
+                   p.nom_pays, 
+                   c.nom_condition, 
+                   co.nom_couleur,
+                   u.nom_utilisateur,
+                   (SELECT chemin_image FROM images_timbres WHERE id_timbre = t.id_timbre ORDER BY ordre_affichage LIMIT 1) as premiere_image,
+                   (SELECT MAX(montant) FROM mises WHERE id_enchere = e.id_enchere) as mise_actuelle,
+                   (SELECT COUNT(*) FROM mises WHERE id_enchere = e.id_enchere) as nombre_mises
+            FROM encheres e
+            LEFT JOIN timbres t ON e.id_timbre = t.id_timbre
+            LEFT JOIN pays p ON t.id_pays_origine = p.id_pays
+            LEFT JOIN conditions c ON t.id_condition = c.id_condition  
+            LEFT JOIN couleurs co ON t.id_couleur = co.id_couleur
+            LEFT JOIN utilisateurs u ON t.id_utilisateur_createur = u.id_utilisateur
+            WHERE e.coup_coeur_lord = 1 
+            AND e.date_fin > NOW()
+            ORDER BY e.date_debut DESC
+            LIMIT $limit";
+    
+    $stmt = $this->prepare($sql);
+    $stmt->execute();
+    
+    $encheres = $stmt->fetchAll();
+    
+    // Le temps restant à chaque enchère
+    foreach ($encheres as &$uneEnchere) {
+        $uneEnchere['temps_restant'] = $this->calculerTempsRestant($uneEnchere['date_fin']);
+    }
+    
+    return $encheres;
+}
+
 }
 ?>
