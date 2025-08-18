@@ -2,4 +2,4 @@
 
 ## Objectifs de cette branche
 
-- Ajouter un catalogue des enchères de timbres qui permet d'afficher toutes les enchères disponibles.
+- Ajouter une vue détaillée pour chaque enchère, avec toutes les informations.
