@@ -1,15 +1,106 @@
- window.addEventListener('scroll', function() {
+// Sticky header au scroll
+window.addEventListener('scroll', function() {
     const headerMain = document.querySelector('.header-main');
     const headerTop = document.querySelector('.header-top');
-    const body = document.body;
+    const bodyEl = document.body;
     
     const headerTopHeight = headerTop.offsetHeight;
     
     if (window.scrollY > headerTopHeight) {
         headerMain.classList.add('sticky-header');
-        body.classList.add('header-sticky-active');
+        bodyEl.classList.add('header-sticky-active');
     } else {
         headerMain.classList.remove('sticky-header');
-        body.classList.remove('header-sticky-active');
+        bodyEl.classList.remove('header-sticky-active');
     }
+});
+
+// Prévisualisation des images
+function previewImages(input) {
+    const previewContainer = document.getElementById('imagePreview');
+    previewContainer.innerHTML = '';
+    
+    // Vérifie si des fichiers ont été sélectionnés
+    if (input.files.length > 0) {
+        // Crée un résumé indiquant combien d'images ont été sélectionnées
+        const summary = document.createElement('div');
+        summary.innerHTML = `<p><strong>${input.files.length} image(s) sélectionnée(s)</strong></p>`;
+        
+        // Applique des styles au résumé (fond coloré, padding, etc.)
+        summary.style.background = '#e8f5e8';
+        summary.style.padding = '8px';
+        summary.style.marginBottom = '10px';
+        previewContainer.appendChild(summary);
+        
+        // Affichage des images (max 5)
+        Array.from(input.files)
+        .slice(0, 5) // Limite l'affichage aux 5 premières images
+        .forEach((file, index) => {
+
+            // Vérifie que le fichier est bien une image (en vérifiant son type MIME)
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    
+                    const imageDiv = document.createElement('div');
+                    imageDiv.style.display = 'inline-block';
+                    imageDiv.style.margin = '5px';
+                    imageDiv.style.border = '1px solid #ddd';
+                    imageDiv.style.padding = '5px';
+                    imageDiv.style.width = '120px';
+                    imageDiv.style.textAlign = 'center';
+                    
+                    imageDiv.innerHTML = 
+                        `<img src="${e.target.result}" style="width:100%; height:80px; object-fit:cover;">
+                         <p style="font-size:11px; margin:5px 0;">Image ${index + 1}: ${file.name}</p>
+                         <small style="font-size:9px; color:#666;">${Math.round(file.size / 1024)} KB</small>`;
+                    
+                    previewContainer.appendChild(imageDiv);
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+}
+
+// Galerie d'images
+function changeImage(newSrc, element) {
+    const zoomImage = document.getElementById('imageZoom');
+    if (zoomImage) {
+        zoomImage.src = newSrc;
+    }
+    
+    // Mise à jour miniature active
+    document.querySelectorAll('.galerie-miniature').forEach(thumb => {
+        thumb.classList.remove('active');
+    });
+    element.classList.add('active');
+}
+
+// Affichage/masquage du champ fichier
+document.addEventListener('DOMContentLoaded', function() {
+    const radioButtons = document.querySelectorAll('input[name="image_action"]');
+    const fileInputContainer = document.getElementById('file-input-container');
+    const fileInput = document.querySelector('input[name="images[]"]');
+    
+    function toggleFileInput() {
+        const selectedValue = document.querySelector('input[name="image_action"]:checked').value;
+        
+        if (selectedValue === 'add' || selectedValue === 'replace') {
+            fileInputContainer.style.display = 'block';
+            fileInput.required = true;
+        } else {
+            fileInputContainer.style.display = 'none';
+            fileInput.required = false;
+            fileInput.value = ''; // Vider la sélection
+        }
+    }
+    
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', toggleFileInput);
+    });
+    
+    toggleFileInput(); // Initialisation
 });

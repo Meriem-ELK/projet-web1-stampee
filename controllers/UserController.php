@@ -39,7 +39,7 @@ class UserController {
                 $newUser = $user->unique('email', $data['email']);
                 if($newUser){
                     session_regenerate_id();
-                    $_SESSION['id_utilisateur'] = $newUser['id'];
+                    $_SESSION['id_utilisateur'] = $newUser['id_utilisateur'];
                     $_SESSION['nom'] = $newUser['nom'];
                     $_SESSION['prenom'] = $newUser['prenom'];
                     $_SESSION['fingerPrint'] = md5($_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR']);

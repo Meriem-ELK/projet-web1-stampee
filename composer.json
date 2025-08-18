@@ -8,6 +8,7 @@
         }
     },
     "require": {
-        "twig/twig": "^3.21"
+        "twig/twig": "^3.21",
+        "intervention/image": "^3.11"
     }
 }

@@ -16,7 +16,7 @@
                                 Découvrez les plus beaux timbres du monde et participez à des enchères exclusives.
                             </p>
                             <div class="contenu-principal-herocta">
-                                <a href="catalogue.html" class="btn">
+                                <a href="{{base}}/enchere" class="btn">
                                     <i class="fas fa-gavel"></i>
                                     Voir les Enchères
                                 </a>
@@ -31,157 +31,103 @@
 
         <!-- Enchères Vedettes -->
         <div class="grille-content">
-                    <div class="container">
-                        <div class="grille-header">
-                            <h2 class="grille--title">Enchères Vedettes</h2>
-                            <p class="grille-subtitle">Découvrez une sélection exceptionnelle de timbres rares et précieux, choisis personnellement par Lord Reginald Stampee III</p>
-                        </div>
+            <div class="container">
+                <div class="grille-header">
+                    <h2 class="grille--title">Enchères Vedettes</h2>
+                    <p class="grille-subtitle">Découvrez une sélection exceptionnelle de timbres rares et précieux, choisis personnellement par Lord Reginald Stampee III</p>
+                </div>
 
-                        <!-- Grille des enchères vedettes -->
-                        <div class="grille">
-                            <div class="carte">
-                        <div class="carte-image">
-                            <div class="carte-lordFavorite">
-                                <i class="fas fa-crown"></i>
-                                Coup de cœur du Lord
-                            </div>
-                            <img src="{{ asset }}assets/img/encheres/timbre-1.webp" alt="" >
-                        </div>
-                        <div class="carte-contenu">
-                            <h2 class="carte-titre">Collection de timbres variés</h2>
-                            <div class="carte-details">
-                                <ul>
-                                    <li>
-                                        <strong>Pays d'origine :</strong>
-                                        collection internationale
-                                    </li>
-                                    <li>
-                                        <strong>Date de création :</strong>
-                                        1940
-                                    </li>
-                                    <li>
-                                        <strong>Condition:</strong>
-                                        Parfaite
-                                    </li>
-                                    <li>
-                                        <strong>Certifié</strong>
-                                        Oui
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="carte-info">
-                                <div class="carte-prix">£2,850</div>
-                                <div class="carte-temps">2j 4h restantes</div>
-                            </div>
-                            <div class="carte-actions">
-                                <button class="btn" onclick="location.href='fiche.html'">
-                                    <i class="fas fa-gavel"></i>
-                                    Placer une Offre
-                                </button>
-                                <button class="btn voir" onclick="location.href='fiche.html'">
-                                    <i class="fas fa-eye"></i>
-                                    Suivre l'enchère
-                                </button>
-                            </div>
-                        </div>
-                            </div>
-                            <div class="carte">
-                                <div class="carte-image">
-                                    <img src="{{ asset }}assets/img/encheres/timbre-2.webp" alt="" >
+                <!-- Grille des enchères vedettes -->
+                    <div class="grille">
+                        {% if encheresVedettes and encheresVedettes|length > 0 %}
+                            {% for enchere in encheresVedettes %}
+                                <div class="carte">
+                                    <div class="carte-image">
+                                        <!-- Badge coup de cœur -->
+                                        <div class="carte-lordFavorite">
+                                            <i class="fas fa-crown"></i>
+                                            Coup de cœur du Lord
+                                        </div>
+                                        
+                                        <!-- Image du timbre -->
+                                            <img src="{{base}}/public/assets/img/timbres/{{ enchere.premiere_image }}" 
+                                                alt="{{ enchere.nom_timbre }}">
+                                    </div>
+                                    
+                                    <div class="carte-contenu">
+                                        <h2 class="carte-titre">{{ enchere.nom_timbre }}</h2>
+                                        
+                                        <div class="carte-details">
+                                            <ul>
+                                                <li>
+                                                    <strong>Pays d'origine :</strong>
+                                                    {{ enchere.nom_pays }}
+                                                </li>
+                                                <li>
+                                                    <strong>Date de création :</strong>
+                                                    {{ enchere.date_creation }}
+                                                </li>
+                                                <li>
+                                                    <strong>Condition:</strong>
+                                                    {{ enchere.nom_condition }}
+                                                </li>
+                                                <li>
+                                                    <strong>Certifié :</strong>
+                                                    {{ enchere.certifie ? 'Oui' : 'Non' }}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="carte-info">
+                                            <div class="carte-prix">
+                                                £{{ enchere.prix_plancher }}
+                                            </div>
+                                            <div class="carte-temps">
+                                                {{ enchere.temps_restant.texte }}
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="carte-actions">
+                                            {% if guest is empty %}
+                                                <!-- Utilisateur connecté -->
+                                                <button class="btn" onclick="location.href='{{base}}/enchere/show?id={{ enchere.id_enchere }}'">
+                                                    <i class="fas fa-gavel"></i>
+                                                    Placer une Offre
+                                                </button>
+                                            {% else %}
+                                                <!-- Utilisateur non connecté -->
+                                                <button class="btn" onclick="location.href='{{base}}/login'">
+                                                    <i class="fas fa-sign-in-alt"></i>
+                                                    Se connecter
+                                                </button>
+                                            {% endif %}
+                                            
+                                            <button class="btn voir" onclick="location.href='{{base}}/enchere/show?id={{ enchere.id_enchere }}'">
+                                                <i class="fas fa-eye"></i>
+                                                Voir l'enchère
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="carte-contenu">
-                                    <h2 class="carte-titre">New Zealand Health</h2>
-                                    <div class="carte-details">
-                                        <ul>
-                                            <li>
-                                                <strong>Pays d'origine :</strong>
-                                                Nouvelle-Zélande
-                                            </li>
-                                            <li>
-                                                <strong>Date de création :</strong>
-                                                1930
-                                            </li>
-                                            <li>
-                                                <strong>Condition:</strong>
-                                                Parfaite
-                                            </li>
-                                            <li>
-                                                <strong>Certifié</strong>
-                                                Oui
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="carte-info">
-                                        <div class="carte-prix">£425</div>
-                                        <div class="carte-temps">1j 12h restantes</div>
-                                    </div>
-                                    <div class="carte-actions">
-                                        <button class="btn" onclick="location.href='fiche.html'">
+                            {% endfor %}
+                        {% else %}
+                            <!-- Message si aucun coup de cœur disponible -->
+                                
+                                    <div class="carte_nonVedette">
+                                        <h2 class="carte-titre">Aucune enchère vedette pour le moment
+
+                                        </h2>
+                                        <button class="btn" onclick="location.href='{{base}}/enchere'">
                                             <i class="fas fa-gavel"></i>
-                                            Placer une Offre
-                                        </button>
-                                        <button class="btn voir" onclick="location.href='fiche.html'">
-                                            <i class="fas fa-eye"></i>
-                                            Suivre l'enchère
+                                            Voir toutes les enchères
                                         </button>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="carte">
-                                <div class="carte-image">
-                                    <div class="carte-lordFavorite">
-                                        <i class="fas fa-crown"></i>
-                                        Coup de cœur du Lord
-                                    </div>
-                                    <img src="{{ asset }}assets/img/encheres/timbre-3.webp" alt="" >
-                                </div>
-                                <div class="carte-contenu">
-                                    <h2 class="carte-titre">Great Britain Machin Head</h2>
-                                    <div class="carte-details">
-                                        <ul>
-                                            <li>
-                                                <strong>Pays d'origine :</strong>
-                                                Royaume-Uni (Grande-Bretagne)
-                                            </li>
-                                            <li>
-                                                <strong>Date de création :</strong>
-                                                1920
-                                            </li>
-                                            <li>
-                                                <strong>Condition:</strong>
-                                                Bonne
-                                            </li>
-                                            <li>
-                                                <strong>Certifié</strong>
-                                                Oui
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="carte-info">
-                                        <div class="carte-prix">£1,200</div>
-                                        <div class="carte-temps">5j 8h restantes</div>
-                                    </div>
-                                    <div class="carte-actions">
-                                        <button class="btn" onclick="location.href='fiche.html'">
-                                            <i class="fas fa-gavel"></i>
-                                            Placer une Offre
-                                        </button>
-                                        <button class="btn voir" onclick="location.href='fiche.html'">
-                                            <i class="fas fa-eye"></i>
-                                            Suivre l'enchère
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="grille-btn">
-                            <a href="catalogue.html" class="btn">
-                                    <i class="fas fa-gavel"></i>
-                                    Voir Toutes les Enchères
-                            </a>
-                        </div>
-                      
+                        {% endif %}
                     </div>
+                
+
+
+            </div>
         </div>
 
 

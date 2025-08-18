@@ -1,6 +1,7 @@
 <?php
 use App\Routes\Route;
 use App\Controllers\HomeController;
+use App\Controllers\TimbreController;
 
 
 // Routes pour la page d'accueil
@@ -27,6 +28,19 @@ Route::post('/profil/edit', 'ProfilController@edit');
 Route::get('/profil/delete', 'ProfilController@delete');
 
 
+// Routes Timbre
+Route::get('/timbre', 'TimbreController@index');
+Route::get('/timbre/show', 'TimbreController@show');
+Route::get('/timbre/create', 'TimbreController@create');
+Route::post('/timbre/store', 'TimbreController@store');
+Route::get('/timbre/edit', 'TimbreController@edit');
+Route::post('/timbre/edit', 'TimbreController@update');
+Route::post('/timbre/delete', 'TimbreController@delete');
 
+
+
+// Routes Enchere
+Route::get('/enchere', 'EnchereController@index');
+Route::get('/enchere/show', 'EnchereController@show');
 
 Route::dispatch();
