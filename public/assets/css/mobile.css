@@ -233,11 +233,7 @@
     .form-control {
         padding: var(--espace-lg);
     }
-    
-    .form-control h2 {
-        font-size: var(--taille-texte-400);
-    }
-    
+
     .profil_informations {
         flex-direction: column;
         gap: 2px;

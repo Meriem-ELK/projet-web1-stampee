@@ -8,13 +8,6 @@ use App\Models\Timbre;
 
 class TimbreController {
 
-    // /*------------------------------- LISTE - Affiche tous les timbres avec leurs détails */
-    // public function index() {
-    //     $timbre = new Timbre;
-    //     $timbres = $timbre->selectWithDetails();
-    //     return View::render('timbre/index', ['timbres' => $timbres]);
-    // }
-
     /*------------------------------- CREATE - Afficher le formulaire de création */
     public function create() {
         Auth::session(); 
@@ -37,7 +30,7 @@ class TimbreController {
         $validator = new Validator;
         $validator->field('nom', $data['nom'], 'Le nom du timbre')->required()->min(2)->max(100);
         $validator->field('id_pays_origine', $data['id_pays_origine'], 'Le pays d\'origine')->required();
-        $validator->field('date_creation', $data['date_creation'], 'L\'année de création')->required();
+        $validator->field('date_creation', $data['date_creation'], 'L\'année de création')->required()->numeric()->year();
         $validator->field('id_couleur', $data['id_couleur'], 'La couleur')->required();
         $validator->field('id_condition', $data['id_condition'], 'La condition')->required();
 
@@ -165,7 +158,7 @@ class TimbreController {
         $validator = new Validator;
         $validator->field('nom', $data['nom'], 'Le nom du timbre')->required()->min(2)->max(100);
         $validator->field('id_pays_origine', $data['id_pays_origine'], 'Le pays d\'origine')->required();
-        $validator->field('date_creation', $data['date_creation'], 'L\'année de création')->required();
+        $validator->field('date_creation', $data['date_creation'], 'L\'année de création')->required()->numeric()->year();
         $validator->field('id_couleur', $data['id_couleur'], 'La couleur')->required();
         $validator->field('id_condition', $data['id_condition'], 'La condition')->required();
 

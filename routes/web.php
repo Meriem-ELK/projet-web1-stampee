@@ -39,5 +39,8 @@ Route::post('/timbre/delete', 'TimbreController@delete');
 
 
 
+// Routes Enchere
+Route::get('/enchere', 'EnchereController@index');
+Route::get('/enchere/show', 'EnchereController@show');
 
 Route::dispatch();

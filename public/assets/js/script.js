@@ -20,21 +20,29 @@ function previewImages(input) {
     const previewContainer = document.getElementById('imagePreview');
     previewContainer.innerHTML = '';
     
+    // Vérifie si des fichiers ont été sélectionnés
     if (input.files.length > 0) {
-        // Résumé
+        // Crée un résumé indiquant combien d'images ont été sélectionnées
         const summary = document.createElement('div');
         summary.innerHTML = `<p><strong>${input.files.length} image(s) sélectionnée(s)</strong></p>`;
+        
+        // Applique des styles au résumé (fond coloré, padding, etc.)
         summary.style.background = '#e8f5e8';
         summary.style.padding = '8px';
         summary.style.marginBottom = '10px';
         previewContainer.appendChild(summary);
         
         // Affichage des images (max 5)
-        Array.from(input.files).slice(0, 5).forEach((file, index) => {
+        Array.from(input.files)
+        .slice(0, 5) // Limite l'affichage aux 5 premières images
+        .forEach((file, index) => {
+
+            // Vérifie que le fichier est bien une image (en vérifiant son type MIME)
             if (file.type.startsWith('image/')) {
                 const reader = new FileReader();
                 
                 reader.onload = function(e) {
+                    
                     const imageDiv = document.createElement('div');
                     imageDiv.style.display = 'inline-block';
                     imageDiv.style.margin = '5px';

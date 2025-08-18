@@ -16,7 +16,7 @@
                                 Découvrez les plus beaux timbres du monde et participez à des enchères exclusives.
                             </p>
                             <div class="contenu-principal-herocta">
-                                <a href="catalogue.html" class="btn">
+                                <a href="{{base}}/enchere" class="btn">
                                     <i class="fas fa-gavel"></i>
                                     Voir les Enchères
                                 </a>
@@ -175,7 +175,7 @@
                             </div>
                         </div>
                         <div class="grille-btn">
-                            <a href="catalogue.html" class="btn">
+                            <a href="{{base}}/enchere" class="btn">
                                     <i class="fas fa-gavel"></i>
                                     Voir Toutes les Enchères
                             </a>

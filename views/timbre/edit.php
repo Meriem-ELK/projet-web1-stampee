@@ -45,7 +45,9 @@
             <div class="form-group">
                 <label class="form-label">Année de création *</label>
                 <input type="number" name="date_creation" class="form-input" 
-                       min="1000" max="9999" value="{{ timbre.date_creation }}" 
+                       value="{{ timbre.date_creation }}" 
+                       min="1000"
+                       max="{{ "now"|date("Y") }}"
                        placeholder="Ex: 2024">
             </div>
             

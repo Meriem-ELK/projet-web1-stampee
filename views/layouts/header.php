@@ -94,7 +94,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{base}}/" class="nav-lien">
+                            <a href="{{base}}/enchere" class="nav-lien">
                                 <i class="fas fa-gavel"></i>
                                 Enchères
                             </a>

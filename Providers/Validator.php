@@ -50,6 +50,15 @@ class Validator {
         return $this;
     }
 
+    public function year(){
+        if (!empty($this->value)) {
+            if (!is_numeric($this->value) || strlen($this->value) != 4 || $this->value < 1000 || $this->value > intval(date('Y'))) {
+                $this->addErrorMessage("$this->name doit être une année valide.");
+            }
+        }
+         return $this;
+    }
+
     public function email(){
         if(!empty($this->value) && !filter_var($this->value, FILTER_VALIDATE_EMAIL)){
             $this->addErrorMessage("$this->name doit être une adresse email valide.");

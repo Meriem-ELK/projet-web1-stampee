@@ -292,7 +292,7 @@ public function deleteTimbreImages($timbreId) {
          foreach ($images as $image) {
                 $filePath = $uploadDir . $image['chemin_image'];
                 if (file_exists($filePath)) {
-                    unlink($filePath); // Supprimer le fichier du serveur
+                unlink($filePath); // Supprimer le fichier du serveur
                 }
         }
         
