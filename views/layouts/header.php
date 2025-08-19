@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" >
         <meta name="description" content="Portail des enchères Stampee - Enchères philatéliques de Lord Reginald Stampee III" >
         <meta name="keywords" content="enchères, timbres, philatélie, Lord Stampee, collection" >
+        <link rel="icon" type="image/svg+xml" href="{{ asset }}assets/img/favicon.svg">
         <title>{{ title }}</title>
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" >
