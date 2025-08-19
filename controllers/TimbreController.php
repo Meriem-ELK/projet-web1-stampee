@@ -41,6 +41,10 @@ class TimbreController {
             $validator->field('dimensions', $data['dimensions'])->min(2)->max(50);
         }
 
+        // Nettoyer les champs optionnels : convertir '' en null
+        $data['tirage'] = $data['tirage'] !== '' ? (int)$data['tirage'] : null;
+        $data['dimensions'] = $data['dimensions'] !== '' ? $data['dimensions'] : null;
+
         // Validation des images
         if (!empty($_FILES['images']) && isset($_FILES['images']['name'])) {
             $imageErrors = $timbre->validateImages($_FILES['images']);
@@ -206,6 +210,10 @@ class TimbreController {
         if (!$validator->isSuccess()) {
             return $renderEditForm($validator->getErrors());
         }
+
+        // Nettoyer les champs optionnels : convertir '' en null
+        $data['tirage'] = $data['tirage'] !== '' ? (int)$data['tirage'] : null;
+        $data['dimensions'] = $data['dimensions'] !== '' ? $data['dimensions'] : null;
 
         if (!empty($data['image_action']) && $hasNewImages) {
             if ($data['image_action'] == 'add') {

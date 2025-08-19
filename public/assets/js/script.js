@@ -26,7 +26,7 @@ function previewImages(input) {
         const summary = document.createElement('div');
         summary.innerHTML = `<p><strong>${input.files.length} image(s) sélectionnée(s)</strong></p>`;
         
-        // Applique des styles au résumé (fond coloré, padding, etc.)
+        // Applique des styles au résumé
         summary.style.background = '#e8f5e8';
         summary.style.padding = '8px';
         summary.style.marginBottom = '10px';
@@ -37,7 +37,7 @@ function previewImages(input) {
         .slice(0, 5) // Limite l'affichage aux 5 premières images
         .forEach((file, index) => {
 
-            // Vérifie que le fichier est bien une image (en vérifiant son type MIME)
+            // Vérifie que le fichier est bien une image 
             if (file.type.startsWith('image/')) {
                 const reader = new FileReader();
                 
@@ -86,15 +86,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const fileInput = document.querySelector('input[name="images[]"]');
     
     function toggleFileInput() {
-        const selectedValue = document.querySelector('input[name="image_action"]:checked').value;
+        const checkedRadio = document.querySelector('input[name="image_action"]:checked');
         
-        if (selectedValue === 'add' || selectedValue === 'replace') {
-            fileInputContainer.style.display = 'block';
-            fileInput.required = true;
+        // Vérifier si un bouton radio est coché
+        if (checkedRadio) {
+            const selectedValue = checkedRadio.value;
+            
+            if (selectedValue === 'add' || selectedValue === 'replace') {
+                fileInputContainer.style.display = 'block';
+                fileInput.required = true;
+            } else {
+                fileInputContainer.style.display = 'none';
+                fileInput.required = false;
+                fileInput.value = ''; // Vider la sélection
+            }
         } else {
+            // Si aucun bouton radio n'est coché, masquer par défaut
             fileInputContainer.style.display = 'none';
             fileInput.required = false;
-            fileInput.value = ''; // Vider la sélection
+            fileInput.value = '';
         }
     }
     
@@ -102,5 +112,8 @@ document.addEventListener('DOMContentLoaded', function() {
         radio.addEventListener('change', toggleFileInput);
     });
     
-    toggleFileInput(); // Initialisation
+    // Initialisation seulement si les éléments existent
+    if (radioButtons.length > 0 && fileInputContainer && fileInput) {
+        toggleFileInput();
+    }
 });

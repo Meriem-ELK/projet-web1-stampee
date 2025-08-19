@@ -4,8 +4,6 @@ namespace App\Controllers;
 use App\Providers\View;
 use App\Providers\Validator;
 use App\Models\User;
-
-//classe AuthController qui gère l'authentification
 class AuthController{
     
 
