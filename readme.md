@@ -1,4 +1,4 @@
 # Projet_Stampee
 ## Objectifs de cette branche 
--	Ajouter un bouton (icône de cœur) sur chaque enchère. Au clic, ce bouton ajoute ou supprime l'enchère des favoris de l'utilisateur connecté.
--	Intégrer la liste de toutes les enchères que l'utilisateur a marquées comme favorites dans la page profil.
+-	Intégration de la bibliothèque Fancybox pour le zoom plein écran et développer un effet loupe personnalisé en JavaScript pour zoomer au survol des images de timbres.
+-	Ajout d’un système de miniatures permettant de changer l’image affichée.

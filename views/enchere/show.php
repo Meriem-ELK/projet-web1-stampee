@@ -22,12 +22,16 @@
             <div class="galerie-enchere">
                 <div class="zoom">
                     <picture>
-                        <img src="{{base}}/public/assets/img/timbres/{{ images[0].chemin_image }}" 
-                             alt="{{ enchere.nom_timbre }}" id="imageZoom">
+                        <!-- Image principale affichée -->
+                        <img id="imageZoom"
+                            src="{{base}}/public/assets/img/timbres/{{ images[0].chemin_image }}"
+                            alt="{{ enchere.nom_timbre }}"
+                            data-fancybox="galerie"
+                            data-caption="{{ enchere.nom_timbre }}">
                     </picture>
 
                     <!-- Bouton plein écran (zoom) -->
-                    <button class="zoom-btn" title="Plein écran">
+                    <button class="zoom-btn" id="fullscreenBtn" title="Plein écran">
                         <i class="fas fa-expand"></i>
                     </button>
                 </div>
