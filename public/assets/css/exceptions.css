@@ -399,41 +399,6 @@ input[type="radio"]:checked::before {
     color: var(--gris-moyen);
     margin-bottom: var(--espace-lg);
 }
-
-/**/
-/* .zoom {
-    position: relative;
-    margin-bottom: 1rem;
-    border: 2px solid var(--gris-clair);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    background: white;
-}
-
-.zoom img {
-    width: 100%;
-    height: 400px;
-    object-fit: contain;
-    display: block;
-}
-
-.zoom-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(0,0,0,0.7);
-    color: white;
-    border: none;
-    padding: 8px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.zoom-btn:hover {
-    background: rgba(0,0,0,0.9);
-} */
-
 .certifie {
     color: var(--separateur);
     font-weight: 600;
@@ -470,3 +435,105 @@ input[type="radio"]:checked::before {
     display: block;
     text-align: center;
 }
+
+/*================================== Favoris encheres*/
+
+/* Style pour le bouton favori */
+.btn-favori{    
+    font-weight: bold;
+    text-align: center;
+    background: linear-gradient(180deg, #fff 0, #ecf5ff 99%);
+    border:1px solid var(--accent-rouge);
+    color:var(--bleu-principale);
+
+        & .fa-heart:before{color:var(--accent-rouge)}
+        &:hover {
+            background-color: #f8f9fa;
+            color:var(--accent-rouge);
+            border: 1px solid #6c757d;
+        }
+}
+
+
+.btn-favori-active {
+    background-color:var(--accent-rouge);
+    color: white;
+    text-align: center;
+}
+
+
+/* Style pour les statuts */
+.status-active {
+    color: #198754;
+    font-weight: bold;
+}
+
+.status-expired {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Style pour le bouton favori sur les cartes */
+.carte-image .carte-favoris {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+}
+
+.carte-image .btn-favori {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.carte-image .btn-favori-inactive {
+    color: #6c757d;
+    border:1px solid  #6c757d;
+        & .fa-heart:before{
+            color:#6c757d;;
+        }
+        &:hover{
+            border:1px solid var(--accent-rouge);
+            color: #dc3545;
+            background-color:var(--blanc);
+        }
+        
+}
+
+.carte-image .btn-favori-active {
+    color: #dc3545;
+    background-color:var(--blanc);
+    border:1px solid var(--accent-rouge);
+        &:hover{
+            color: #6c757d;
+            background-color:var(--blanc);
+            border:1px solid  #6c757d;
+        }
+}
+.carte-image {
+    position: relative;
+}
+
+/* Style pour les messages flash */
+.message-flash {
+    background-color: #4CAF50; /* Vert pour les succès */
+    color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Style pour les messages d'erreur */
+.message-flash.error {
+    background-color: #f44336; /* Rouge pour les erreurs */
+}
+

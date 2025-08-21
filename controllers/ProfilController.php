@@ -6,6 +6,7 @@ use App\Providers\Auth;
 use App\Providers\Validator;
 use App\Models\User;
 use App\Models\Timbre; 
+use App\Models\Favoris; 
 
 class ProfilController{
     
@@ -14,18 +15,24 @@ public function index(){
     
     $user = new User();
     $timbre = new Timbre();
+
+    $favoris = new Favoris(); 
     
     // Récupérer les données de l'utilisateur par son ID
     $utilisateur = $user->selectId($_SESSION['id_utilisateur']);
     
     // Récupérer tous les timbres créés par cet utilisateur
     $mesTimbres = $timbre->getTimbresByUser($_SESSION['id_utilisateur']);
+
+    // Récupérer les enchères favorites de l'utilisateur
+    $mesFavoris = $favoris->getFavorisByUser($_SESSION['id_utilisateur']);
     
     // Si l'utilisateur existe dans la base de données
     if($utilisateur){
         return View::render('profil/index', [
             'utilisateur' => $utilisateur,
-            'mesTimbres' => $mesTimbres 
+            'mesTimbres' => $mesTimbres,
+            'mesFavoris' => $mesFavoris 
         ]);
     } else {
         return View::render('error', ['message'=>"Erreur - Utilisateur introuvable."]);

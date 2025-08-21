@@ -2,6 +2,7 @@
 use App\Routes\Route;
 use App\Controllers\HomeController;
 use App\Controllers\TimbreController;
+use App\Controllers\FavorisController;
 
 
 // Routes pour la page d'accueil
@@ -42,5 +43,8 @@ Route::post('/timbre/delete', 'TimbreController@delete');
 // Routes Enchere
 Route::get('/enchere', 'EnchereController@index');
 Route::get('/enchere/show', 'EnchereController@show');
+
+
+Route::get('/favoris/switch', 'FavorisController@switchFavoris');
 
 Route::dispatch();

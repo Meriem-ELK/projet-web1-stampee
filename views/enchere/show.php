@@ -49,7 +49,7 @@
             <!-- Nom du timbre -->
             <h2>{{ enchere.nom_timbre }}</h2>
 
-            <!-- Détails du timbre (métadonnées) -->
+            <!-- Détails du timbre -->
             <div class="carte-detaills">
                 <div class="grille-meta">
 
@@ -165,7 +165,16 @@
                     </div>
                 {% endif %}
 
-              
+                {% if not guest %}
+                    <div class="carte-actions">
+                        <a href="{{base}}/favoris/switch?id_enchere={{ enchere.id_enchere }}" 
+                        class="btn {{ estFavori ? 'btn-favori-active' : 'btn-favori' }}">
+                            <i class="fas fa-heart"></i>
+                            {{ estFavori ? 'Ne plus suivre cette enchère' : 'Suivre cette enchère' }}
+                        </a>
+                    </div>
+                {% endif %}
+
             </div>
 
             <!-- Carte de connexion (si utilisateur non connecté) -->
@@ -220,6 +229,8 @@
                 </div>
 
             </div>
+
+           
 
         </aside>
         

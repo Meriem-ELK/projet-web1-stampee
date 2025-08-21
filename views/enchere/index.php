@@ -2,6 +2,7 @@
 {{ include('layouts/header.php', {title: 'Catalogue des Enchères - Stampee'})}}
  
 <div class="container">
+
     <!-- En-tête de page -->
     <header class="contenu-principal-header">
         <h2 class="contenu-principal-titre">Portail des Enchères</h2>
@@ -25,6 +26,17 @@
                         <!-- Image du timbre -->
                             <img src="{{base}}/public/assets/img/timbres/{{ enchere.premiere_image }}" 
                                  alt="{{ enchere.nom_timbre }}">
+
+                        <!-- Ajouter/retirer la Favoris --> 
+                        {% if not guest %}
+                            <div class="carte-favoris">
+                                <a href="{{base}}/favoris/switch?id_enchere={{ enchere.id_enchere }}" 
+                                class="btn-favori {{ enchere.est_favori ? 'btn-favori-active' : 'btn-favori-inactive' }}"
+                                title="{{ enchere.est_favori ? 'Retirer des favoris' : 'Ajouter aux favoris' }}">
+                                    <i class="fas fa-heart"></i>
+                                </a>
+                            </div>
+                        {% endif %}        
                     </div>
                     
                     <div class="carte-contenu">

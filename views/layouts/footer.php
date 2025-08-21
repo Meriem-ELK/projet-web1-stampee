@@ -37,5 +37,15 @@
                 </div>
             </div>
         </footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- fancybox -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+
+
+
+
     </body>
 </html>

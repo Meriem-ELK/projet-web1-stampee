@@ -152,6 +152,111 @@
         </div>
     </section>
 
+
+
+    <!-- Section : Enchères favorites -->
+    <section class="form-control">
+        <div class="profile-section">
+            <h2 class="taille_texte_200">
+                <i class="fas fa-heart"></i> Mes enchères favorites
+            </h2>
+
+            <!-- En-tête de la section favoris -->
+            <div class="section-header">
+                <!-- Affichage du nombre de favoris -->
+                <span class="stat-badge">
+                    <strong>{{ mesFavoris|length }}</strong> 
+                    favori{{ mesFavoris|length > 1 ? 's' : '' }}
+                </span>
+            </div>
+
+            {% if mesFavoris is defined and mesFavoris|length > 0 %}
+                <!-- Tableau de favoris -->
+                <div class="timbres-table-container">
+                    <table class="timbres-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Nom du timbre</th>
+                                <th>Pays</th>
+                                <th>Prix actuel</th>
+                                <th>Temps restant</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for favori in mesFavoris %}
+                            <tr class="timbre-row">
+                                <!-- Affichage de l'image du timbre -->
+                                <td class="timbre-thumb">
+                                    {% if favori.premiere_image %}
+                                        <img src="{{base}}/public/assets/img/timbres/{{ favori.premiere_image }}" 
+                                            alt="{{ favori.nom_timbre }}" class="thumb-img">
+                                    {% else %}
+                                        <div class="thumb-placeholder">
+                                            <i class="fas fa-image"></i>
+                                        </div>
+                                    {% endif %}
+                                </td>
+
+                                <!-- Nom -->
+                                <td class="timbre-name">
+                                    <strong>{{ favori.nom_timbre }}</strong>
+                                </td>
+
+                                <!-- Pays -->
+                                <td>
+                                    <span class="country-tag">{{ favori.nom_pays }}</span>
+                                </td>
+
+                                <!-- Prix actuel -->
+                                <td class="price">
+                                    £{{ favori.mise_actuelle ? favori.mise_actuelle : favori.prix_plancher }}
+                                </td>
+
+                                <!-- Temps restant -->
+                                <td>
+                                    {% if favori.temps_restant.fini %}
+                                        <span class="status-expired">Terminée</span>
+                                    {% else %}
+                                        <span class="status-active">{{ favori.temps_restant.texte }}</span>
+                                    {% endif %}
+                                </td>
+
+                                <!-- Actions : Voir / Retirer des favoris -->
+                                <td class="actions">
+                                    <div class="action-buttons">
+                                        <a href="{{base}}/enchere/show?id={{favori.id_enchere}}"
+                                        class="action-btn view" title="Suivre cette enchère">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{base}}/favoris/switch?id_enchere={{favori.id_enchere}}" 
+                                        class="action-btn delete" title="Ne plus suivre cette enchère">
+                                            <i class="fas fa-heart-broken"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <!-- Message si l'utilisateur n'a pas encore de favoris -->
+                <div class="empty-collection">
+                    <div class="empty-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h4>Vous n'avez pas encore d'enchères favorites</h4>
+                    <p>Explorez les enchères et ajoutez celles qui vous intéressent à vos favoris.</p>
+                    <a href="{{base}}/enchere" class="btn btn-content">
+                        <i class="fas fa-search"></i> Parcourir les enchères
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
 </div>
 
 <!-- Footer -->

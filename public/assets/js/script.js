@@ -65,14 +65,15 @@ function previewImages(input) {
     }
 }
 
-// Galerie d'images
+//  fonction changeImage
 function changeImage(newSrc, element) {
-    const zoomImage = document.getElementById('imageZoom');
-    if (zoomImage) {
-        zoomImage.src = newSrc;
+    const img = document.getElementById('imageZoom');
+    if (img) {
+        img.src = newSrc;
+        const loupe = document.querySelector('.zoom div[style*="position:absolute"]');
+        if (loupe) loupe.style.backgroundImage = `url(${newSrc})`;
     }
     
-    // Mise à jour miniature active
     document.querySelectorAll('.galerie-miniature').forEach(thumb => {
         thumb.classList.remove('active');
     });
@@ -116,4 +117,21 @@ document.addEventListener('DOMContentLoaded', function() {
     if (radioButtons.length > 0 && fileInputContainer && fileInput) {
         toggleFileInput();
     }
+});
+
+// Confirmation pour retirer des favoris
+document.addEventListener('DOMContentLoaded', function() {
+    const linksFavoris = document.querySelectorAll('a[href*="/favoris/switch"]');
+    
+    linksFavoris.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Si c'est pour retirer des favoris, demander confirmation
+            if (this.classList.contains('btn-favori-active') || 
+                this.querySelector('.fa-heart-broken')) {
+                if (!confirm('Êtes-vous sûr de vouloir retirer cette enchère de vos favoris ?')) {
+                    e.preventDefault();
+                }
+            }
+        });
+    });
 });
