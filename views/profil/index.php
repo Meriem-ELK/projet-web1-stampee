@@ -2,6 +2,25 @@
 {{ include('layouts/header.php', {title: 'Profil - Stampee '})}}
 
 <div class="container">
+                <!-- Affichage des erreurs/succès -->
+                {% if errors is defined and errors is not empty %}
+                    <div id="notification-message">
+                        {% if errors.success is defined %}
+                            <div class="success">
+                                {{ errors.success }}
+                            </div>
+                        {% else %}
+                            <div class="error">
+                                {% for field, message in errors %}
+                                    <div class="error-item">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
 
     <!-- Section : Informations personnelles de l'utilisateur -->
     <section class="form-control">
@@ -30,9 +49,153 @@
         </div>
     </section>
 
+    <!-- Section : Mes offres -->
+    <section class="form-control">
+        <div class="profile-section" id="table_mesOffres">
+            <h2 class="taille_texte_200">
+                <i class="fas fa-gavel"></i> Mes offres
+            </h2>
+
+            <!-- En-tête de la section offres -->
+            <div class="section-header">
+                <!-- Affichage du nombre d'offres -->
+                <span class="stat-badge">
+                    <strong>{{ mesOffres|length }}</strong> 
+                    offre{{ mesOffres|length > 1 ? 's' : '' }}
+                </span>
+                
+                <!-- Enchères où l'utilisateur est en tête -->
+                {% if encheresEnTete|length > 0 %}
+                    <span class="stat-badge stat-winning">
+                        <i class="fas fa-trophy"></i>
+                        <strong>{{ encheresEnTete|length }}</strong> 
+                        en tête
+                    </span>
+                {% endif %}
+            </div>
+
+            {% if mesOffres is defined and mesOffres|length > 0 %}
+                <!-- Tableau des offres -->
+                <div class="timbres-table-container">
+                    <table class="timbres-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Enchère</th>
+                                <th>Mon offre</th>
+                                <th>Prix actuel</th>
+                                <th>Statut</th>
+                                <th>Temps restant</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for offre in mesOffres %}
+                            <tr class="timbre-row mesOffres">
+                                <!-- Affichage de l'image du timbre -->
+                                <td class="timbre-thumb">
+                                    {% if offre.premiere_image %}
+                                        <img src="{{base}}/public/assets/img/timbres/{{ offre.premiere_image }}" 
+                                             alt="{{ offre.nom_timbre }}" class="thumb-img">
+                                    {% else %}
+                                        <div class="thumb-placeholder">
+                                            <i class="fas fa-image"></i>
+                                        </div>
+                                    {% endif %}
+                                </td>
+
+                                <!-- Nom du timbre -->
+                                <td class="timbre-name">
+                                    <strong>{{ offre.nom_timbre }}</strong>
+                                    <br>
+                                    <small class="country-tag">{{ offre.nom_pays }}</small>
+                                </td>
+
+                                <!-- Mon offre -->
+                                <td class="price">
+                                    <strong>£{{ offre.montant }}</strong>
+                                    <br>
+                                    <small>{{ offre.date_mise|date('d/m/Y H:i') }}</small>
+                                </td>
+
+                                <!-- Prix actuel -->
+                                <td class="price">
+                                    £ {{ offre.mise_actuelle }}
+                                </td>
+
+                                <!-- Statut de l'offre -->
+                                <td>
+                                    {% if offre.temps_restant.fini %}
+                                        <span class="status-expired">Terminée</span>
+                                    {% elseif offre.en_tete %}
+                                        <span class="status-winning">
+                                            <i class="fas fa-trophy"></i> En tête
+                                        </span>
+                                    {% else %}
+                                        <span class="status-outbid">Dépassé</span>
+                                    {% endif %}
+                                </td>
+
+                                <!-- Temps restant -->
+                                <td>
+                                    {% if offre.temps_restant.fini %}
+                                        <span class="status-expired">Finie</span>
+                                    {% else %}
+                                        <span class="status-active">{{ offre.temps_restant.texte }}</span>
+                                    {% endif %}
+                                </td>
+
+                                <!-- Actions -->
+                                <td class="actions">
+                                    <div class="action-buttons">
+                                        <a href="{{base}}/enchere/show?id={{offre.id_enchere}}"
+                                           class="action-btn view" title="Voir l'enchère">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Navigation de pagination -->
+                <div class="pagination-nav">
+                        <button id="btn-previous" class="pagination-btn">
+                            <i class="fas fa-chevron-left"></i> Précédent
+                        </button>
+                        
+                        <div class="pagination-nbrs" id="pagination-nbrs">
+                            <!-- Les numéros de pages seront générés par JavaScript -->
+                        </div>
+                        
+                        <button id="btn-next" class="pagination-btn">
+                            Suivant <i class="fas fa-chevron-right"></i>
+                        </button>
+                </div>
+
+
+
+            {% else %}
+                <!-- Message si l'utilisateur n'a pas encore fait d'offre -->
+                <div class="empty-collection">
+                    <div class="empty-icon">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <h4>Vous n'avez pas encore fait d'offre</h4>
+                    <p>Explorez les enchères et faites votre première offre sur un timbre qui vous intéresse.</p>
+                    <a href="{{base}}/enchere" class="btn btn-content">
+                        <i class="fas fa-search"></i> Parcourir les enchères
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
     <!-- Section : Collection de timbres -->
     <section class="form-control">
-        <div class="profile-section">
+        <div class="profile-section" id="table_timbres">
             <h2 class="taille_texte_200">
                 <i class="fas fa-stamp"></i> Ma collection de timbres
             </h2>
@@ -135,6 +298,22 @@
                             {% endfor %}
                         </tbody>
                     </table>
+
+                    <!-- Navigation de pagination pour les timbres -->
+                    <div class="pagination-nav">
+                        <button id="btn-previous-timbres" class="pagination-btn">
+                            <i class="fas fa-chevron-left"></i> Précédent
+                        </button>
+                        
+                        <div class="pagination-nbrs" id="pagination-nbrs-timbres">
+                            <!-- Les numéros de pages seront générés par JavaScript -->
+                        </div>
+                        
+                        <button id="btn-next-timbres" class="pagination-btn">
+                            Suivant <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+
                 </div>
             {% else %}
                 <!-- Message si l'utilisateur n'a pas encore de timbre -->
@@ -156,7 +335,7 @@
 
     <!-- Section : Enchères favorites -->
     <section class="form-control">
-        <div class="profile-section">
+        <div class="profile-section" id="table_favoris">
             <h2 class="taille_texte_200">
                 <i class="fas fa-heart"></i> Mes enchères favorites
             </h2>
@@ -173,7 +352,7 @@
             {% if mesFavoris is defined and mesFavoris|length > 0 %}
                 <!-- Tableau de favoris -->
                 <div class="timbres-table-container">
-                    <table class="timbres-table">
+                    <table class="timbres-table" >
                         <thead>
                             <tr>
                                 <th>Image</th>
@@ -241,6 +420,23 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Navigation de pagination pour les favoris -->
+                <div class="pagination-nav">
+                    <button id="btn-previous-favoris" class="pagination-btn">
+                        <i class="fas fa-chevron-left"></i> Précédent
+                    </button>
+                    
+                    <div class="pagination-nbrs" id="pagination-nbrs-favoris">
+                        <!-- Les numéros de pages seront générés par JavaScript -->
+                    </div>
+                    
+                    <button id="btn-next-favoris" class="pagination-btn">
+                        Suivant <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+
             {% else %}
                 <!-- Message si l'utilisateur n'a pas encore de favoris -->
                 <div class="empty-collection">

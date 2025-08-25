@@ -12,6 +12,26 @@
         </ul>
     </nav>
 
+                <!-- Affichage des erreurs/succès -->
+                {% if errors is defined and errors is not empty %}
+                <div id="notification-message">
+                            {% if errors.success is defined %}
+                                <div class="success">
+                                    {{ errors.success }}
+                                </div>
+                            {% else %}
+                                <div class="error">
+                                    {% for field, message in errors %}
+                                        <div class="error-item">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                </div>
+                {% endif %}
+
+
     <!-- Grille principale -->
     <div class="grille_detail">
 
@@ -155,7 +175,11 @@
               
                 <!-- Prix actuel -->
                 <div class="carte_fiche-prix">
-                    <div class="label"> Prix de départ </div>
+                    {% if tempsRestant.fini %}
+                        <div class="label"> Prix final</div>
+                    {% else %}
+                        <div class="label"> Prix actuel </div>
+                    {% endif %}
                     <div class="prixActuelle">
                         £{{ enchere.mise_actuelle ? enchere.mise_actuelle : enchere.prix_plancher }}
                     </div>
@@ -168,7 +192,26 @@
                         <div class="temps">{{ tempsRestant.texte }}</div>
                     </div>
                 {% endif %}
+ 
+                <!-- Formulaire d'offre (si utilisateur connecté et enchère active) -->
+                {% if not guest and not tempsRestant.fini %}
+                    <form class="form-enchere" action="{{base}}/mise/store" method="post">
+                        <input type="hidden" name="id_enchere" value="{{ enchere.id_enchere }}">
+                        <input type="number" class="input" name="montant"  placeholder="Entrez votre offre"> 
+                        
+                        <button type="submit" class="btn">
+                            <i class="fas fa-gavel"></i>
+                            Placer une enchère
+                        </button>
+                    </form>
+                    
+                    <div class="info">
+                        Enchère minimum: £{{ (enchere.mise_actuelle ? enchere.mise_actuelle + 1 : enchere.prix_plancher) }}
+                    </div>
+                {% endif %}
 
+
+                <!-- Bouton suivre enchère -->
                 {% if not guest %}
                     <div class="carte-actions">
                         <a href="{{base}}/favoris/switch?id_enchere={{ enchere.id_enchere }}" 

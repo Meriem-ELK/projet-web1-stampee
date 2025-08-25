@@ -15,6 +15,17 @@ window.addEventListener('scroll', function() {
     }
 });
 
+
+// window.addEventListener('DOMContentLoaded', function () {
+//         const notification = document.getElementById('notification-message');
+//         if (notification) {
+//             window.scrollTo({
+//                 top: notification.offsetTop - 20,
+//                 behavior: 'smooth'
+//             });
+//         }
+//     });
+
 // Prévisualisation des images
 function previewImages(input) {
     const previewContainer = document.getElementById('imagePreview');
@@ -183,5 +194,122 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
+    });
+});
+
+// Pagination pour les tables dans la page profil
+document.addEventListener("DOMContentLoaded", function () {
+    
+    // Configuration des tables à paginer
+    const tablesConfig = [
+        {
+            tableId: "table_mesOffres",
+            rowsSelector: ".mesOffres", 
+            paginationId: "pagination-nbrs",
+            btnPrevId: "btn-previous",
+            btnNextId: "btn-next",
+            rowsPerPage: 5
+        },
+        {
+            tableId: "table_timbres",
+            rowsSelector: "#table_timbres .timbre-row",
+            paginationId: "pagination-nbrs-timbres", 
+            btnPrevId: "btn-previous-timbres",
+            btnNextId: "btn-next-timbres",
+            rowsPerPage: 5
+        },
+        {
+            tableId: "table_favoris", 
+            rowsSelector: "#table_favoris .timbre-row",
+            paginationId: "pagination-nbrs-favoris",
+            btnPrevId: "btn-previous-favoris", 
+            btnNextId: "btn-next-favoris",
+            rowsPerPage: 5
+        }
+    ];
+
+    // Fonction pour initialiser la pagination d'une table
+    function initTablePagination(config) {
+        // Vérification de l'existence de tous les éléments nécessaires AVANT d'initialiser la pagination
+        const tableContainer = document.getElementById(config.tableId);
+        const rows = document.querySelectorAll(config.rowsSelector);
+        const paginationContainer = document.getElementById(config.paginationId);
+        const btnPrev = document.getElementById(config.btnPrevId);
+        const btnNext = document.getElementById(config.btnNextId);
+
+        // Si un des éléments critiques n'existe pas, on sort de la fonction
+        if (!rows.length || !paginationContainer || !btnPrev || !btnNext || !tableContainer) {
+            return; // Arrête l'exécution si les éléments de pagination n'existent pas
+        }
+
+        const rowsPerPage = config.rowsPerPage;
+        const totalPages = Math.ceil(rows.length / rowsPerPage);
+        let currentPage = 1;
+
+        function showPage(page) {
+            const start = (page - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+
+            rows.forEach((row, index) => {
+                row.style.display = (index >= start && index < end) ? "" : "none";
+            });
+
+            // Mettre à jour les boutons
+            btnPrev.disabled = page === 1;
+            btnNext.disabled = page === totalPages;
+
+            // Mettre à jour la pagination active pour cette table spécifique
+            paginationContainer.querySelectorAll(".pagination-nbr").forEach(btn => {
+                btn.classList.toggle("active", parseInt(btn.textContent) === page);
+            });
+
+        }
+
+        function setupPagination() {
+            // Vider le conteneur de pagination avant d'ajouter les boutons
+            paginationContainer.innerHTML = '';
+                     
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement("button");
+                btn.textContent = i;
+                btn.classList.add("pagination-nbr");
+                if (i === currentPage) btn.classList.add("active");
+
+                btn.addEventListener("click", () => {
+                    currentPage = i;
+                    showPage(currentPage);
+                    tableContainer.scrollIntoView({ behavior: "smooth" });
+                });
+
+                paginationContainer.appendChild(btn);
+            }
+        }
+
+        btnPrev.addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage--;
+                showPage(currentPage);
+                tableContainer.scrollIntoView({ behavior: "smooth" });
+            }
+        });
+
+        btnNext.addEventListener("click", () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                showPage(currentPage);
+                tableContainer.scrollIntoView({ behavior: "smooth" });
+            }
+        });
+
+        // Initialiser la pagination seulement si on a des lignes à paginer
+        if (totalPages > 0) {
+            setupPagination();
+            showPage(currentPage);
+        }
+    }
+
+    // Initialiser la pagination pour chaque table
+    tablesConfig.forEach(config => {
+        initTablePagination(config);
     });
 });

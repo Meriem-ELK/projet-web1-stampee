@@ -65,19 +65,34 @@
                         
                         <div class="carte-info">
                             <div class="carte-prix">
-                                    £{{ enchere.prix_plancher }}
+                                £{{ enchere.mise_actuelle ? enchere.mise_actuelle : enchere.prix_plancher }}
                             </div>
                             
                             <div class="carte-temps">
-                                    {{ enchere.temps_restant.texte }}
+                                {{ enchere.temps_restant.texte }}
                             </div>
                         </div>
                         
                         <div class="carte-actions">
+
+                        {% if guest is empty %} 
+                            <!-- Utilisateur connecté -->
+                            <button class="btn" onclick="location.href='{{base}}/enchere/show?id={{ enchere.id_enchere }}'">
+                                <i class="fas fa-gavel"></i>
+                                Placer une Offre
+                            </button>
+                        {% else %}
+                            <!-- Utilisateur non connecté -->
+                            <button class="btn" onclick="location.href='{{base}}/login'">
+                                <i class="fas fa-sign-in-alt"></i>
+                                Se connecter
+                            </button>
                             <button class="btn voir" onclick="location.href='{{base}}/enchere/show?id={{ enchere.id_enchere }}'">
                                 <i class="fas fa-eye"></i>
                                 Voir les détails
                             </button>
+                        {% endif %}
+
                         </div>
                     </div>
                 </div>

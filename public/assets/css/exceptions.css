@@ -104,13 +104,15 @@ aside {
   background-color: #e8f5e9;
   color: #388e3c;
   border-left: 4px solid #388e3c;
+  margin-bottom: 15px;
+  padding: 10px;
 }
 
 .error {
   background-color: #ffebee;
   color: #c62828;
   border-left: 4px solid #c62828;
-  padding-left: 5px;
+  padding: 10px;
   margin-bottom: 15px;
 }
 
@@ -437,8 +439,6 @@ input[type="radio"]:checked::before {
 }
 
 /*================================== Favoris encheres*/
-
-/* Style pour le bouton favori */
 .btn-favori{    
     font-weight: bold;
     text-align: center;
@@ -446,7 +446,9 @@ input[type="radio"]:checked::before {
     border:1px solid var(--accent-rouge);
     color:var(--bleu-principale);
 
-        & .fa-heart:before{color:var(--accent-rouge)}
+        & .fa-heart:before{
+            color:var(--accent-rouge);
+        }
         &:hover {
             background-color: #f8f9fa;
             color:var(--accent-rouge);
@@ -456,9 +458,10 @@ input[type="radio"]:checked::before {
 
 
 .btn-favori-active {
-    background-color:var(--accent-rouge);
-    color: white;
+    color:var(--accent-rouge);
     text-align: center;
+    border:1px solid var(--accent-rouge);
+    background-color: transparent;
 }
 
 
@@ -468,55 +471,14 @@ input[type="radio"]:checked::before {
     font-weight: bold;
 }
 
-.status-expired {
-    color: #dc3545;
+.status-expired,
+.status-outbid {
+    color:var(--accent-rouge);
     font-weight: bold;
 }
 
-/* Style pour le bouton favori sur les cartes */
-.carte-image .carte-favoris {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 5;
-}
 
-.carte-image .btn-favori {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.9);
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.carte-image .btn-favori-inactive {
-    color: #6c757d;
-    border:1px solid  #6c757d;
-        & .fa-heart:before{
-            color:#6c757d;;
-        }
-        &:hover{
-            border:1px solid var(--accent-rouge);
-            color: #dc3545;
-            background-color:var(--blanc);
-        }
-        
-}
-
-.carte-image .btn-favori-active {
-    color: #dc3545;
-    background-color:var(--blanc);
-    border:1px solid var(--accent-rouge);
-        &:hover{
-            color: #6c757d;
-            background-color:var(--blanc);
-            border:1px solid  #6c757d;
-        }
-}
-.carte-image {
-    position: relative;
+.status-winning{ 
+    color: var(--separateur); 
+    font-weight: bold;
 }

@@ -91,7 +91,7 @@
                                         
                                         <div class="carte-info">
                                             <div class="carte-prix">
-                                                £{{ enchere.prix_plancher }}
+                                                £{{ enchere.mise_actuelle ? enchere.mise_actuelle : enchere.prix_plancher }}
                                             </div>
                                             <div class="carte-temps">
                                                 {{ enchere.temps_restant.texte }}
@@ -111,12 +111,11 @@
                                                     <i class="fas fa-sign-in-alt"></i>
                                                     Se connecter
                                                 </button>
+                                                <button class="btn voir" onclick="location.href='{{base}}/enchere/show?id={{ enchere.id_enchere }}'">
+                                                    <i class="fas fa-eye"></i>
+                                                    Voir les détails
+                                                </button>
                                             {% endif %}
-                                            
-                                            <button class="btn voir" onclick="location.href='{{base}}/enchere/show?id={{ enchere.id_enchere }}'">
-                                                <i class="fas fa-eye"></i>
-                                                Voir l'enchère
-                                            </button>
                                         </div>
                                     </div>
                                 </div>

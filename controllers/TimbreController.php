@@ -260,17 +260,23 @@ class TimbreController {
             return View::render('timbre/show', ['timbre' => $timbreData, 'errors' => $errors]);
         }
 
+        // Vérifier si le timbre a des enchères en cours
         if ($timbre->hasRelatedData($id)) {
-            $errors = ['message' => "Impossible de supprimer ce timbre car il est utilisé dans des enchères."];
-            return View::render('timbre/show', ['timbre' => $timbreData, 'errors' => $errors]);
+            // Stocker l'erreur en session pour l'afficher sur le profil
+            $_SESSION['profil_errors'] = ['general' => 'Impossible de supprimer ce timbre car il a une enchère en cours.'];
+            return View::redirect('profil');
         }
 
         $timbre->deleteTimbreImages($id);
+
         if ($timbre->delete($id)) {
-            return View::redirect('profil');
+        // Stocker le message de succès en session
+        $_SESSION['profil_errors'] = ['success' => 'Timbre supprimé avec succès.'];
+        return View::redirect('profil');
         } else {
-            $errors = ['message' => "Erreur lors de la suppression du timbre."];
-            return View::render('timbre/show', ['timbre' => $timbreData, 'errors' => $errors]);
+        // Stocker l'erreur en session
+        $_SESSION['profil_errors'] = ['general' => 'Erreur lors de la suppression du timbre.'];
+        return View::redirect('profil');
         }
     }
 
