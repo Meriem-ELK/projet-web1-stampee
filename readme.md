@@ -1,4 +1,6 @@
 # Projet_Stampee
 ## Objectifs de cette branche 
--	Intégration de la bibliothèque Fancybox pour le zoom plein écran et développer un effet loupe personnalisé en JavaScript pour zoomer au survol des images de timbres.
--	Ajout d’un système de miniatures permettant de changer l’image affichée.
+- Création du contrôleur MiseController avec validation des montants 
+- Ajout du modèle Mise pour la gestion des offres 
+- Intégration du formulaire de placement d’offres dans la fiche d’enchère 
+- Ajout de la section historique des offres dans le profil utilisateur 
