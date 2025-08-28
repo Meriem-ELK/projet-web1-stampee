@@ -56,4 +56,5 @@ Route::post('/mise/store', 'MiseController@store');
 Route::get('/about', 'PageController@about');
 Route::get('/contact', 'PageController@contact');
 
+
 Route::dispatch();

@@ -12,7 +12,7 @@
                     </div>
                     <div class="pied-de-site-section">
                         <h3>Fonctionnement</h3>
-                        <a href="#">Aide "Profil"</a>
+                        <a href="{{ asset }}assets/documents/guide-utilisateur.pdf" target="_blank">Guide Utilisateur</a>
                         <a href="#">Comment placer une offre</a>
                         <a href="#">Suivre une enchère</a>
                         <a href="#">Trouver l'enchère désirée</a>
