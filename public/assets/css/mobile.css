@@ -189,13 +189,7 @@
     .grille-twin{grid-template-columns: 1fr; }
     .grille-twin img{ display: none;}
     .grille-twin div{ text-align: center;}
-}
 
-
-
-
-
-@media (max-width: 768px) {
     .grille_detail {
         grid-template-columns: 1fr;
         gap: 1rem;
@@ -207,6 +201,30 @@
     
     .zoom img {
         height: 300px;
+    }
+
+    /*page contact*/
+    .grille-two {
+        grid-template-columns: 1fr;
+        gap: var(--espace-lg);
+    }
+    
+    .form-contact,
+    .contact-info {
+        padding: var(--espace-lg);
+    }
+    
+    .form-actions {
+        justify-content: center;
+    }
+    
+    .form-actions .btn {
+        flex: 1;
+        min-width: auto;
+    }
+    
+    .faq-grid {
+        grid-template-columns: 1fr;
     }
 }
 @media (max-width: 480px) {

@@ -23,7 +23,7 @@
                         <a href="#">Canada</a>
                         <a href="#">États-Unis</a>
                         <a href="#">Australie</a>
-                        <a href="#">Contacter le webmestre</a>
+                        <a href="{{base}}/contact">Contacter le webmestre</a>
                     </div>
                     <div class="pied-de-site-section">
                         <h3>Informations</h3>

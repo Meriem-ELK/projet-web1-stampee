@@ -22,6 +22,7 @@
 @import url("composants/recherche.css");
 @import url("composants/form.css");
 @import url("composants/pagination.css");
+@import url("composants/contact.css");
 
 /*___________________________   Exceptions */
 @import url("exceptions.css");

@@ -105,7 +105,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{base}}/" class="nav-lien">
+                            <a href="{{base}}/about" class="nav-lien">
                                 <i class="fas fa-user-tie"></i>
                                 À propos du Lord
                             </a>
@@ -117,7 +117,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{base}}/" class="nav-lien">
+                            <a href="{{base}}/contact" class="nav-lien">
                                 <i class="fas fa-envelope"></i>
                                 Contact
                             </a>
