@@ -180,8 +180,9 @@
         left: 0;
     }
     .sort-options {
-        justify-content: space-between;
+        justify-content: flex-end;
         min-width: 100%;
+        margin-top: var(--espace-lg);
     }
 
     /**/
@@ -193,7 +194,6 @@
 
 
 
-/* A verifier */
 
 @media (max-width: 768px) {
     .grille_detail {
@@ -221,6 +221,10 @@
     .collection-stats {
         width: 100%;
         justify-content: center;
+    }
+
+    .recherche-input{
+        padding: var(--espace-xs);
     }
 }
 

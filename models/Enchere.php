@@ -29,7 +29,7 @@ class Enchere extends CRUD {
                 LEFT JOIN conditions c ON t.id_condition = c.id_condition  
                 LEFT JOIN couleurs co ON t.id_couleur = co.id_couleur
                 LEFT JOIN utilisateurs u ON t.id_utilisateur_createur = u.id_utilisateur
-                WHERE e.date_fin > NOW()
+                /*WHERE e.date_fin > NOW()*/
                 ORDER BY e.date_debut DESC";
         
         $stmt = $this->query($sql);
@@ -166,6 +166,107 @@ public function getEncheresCoupeCoeur($limit = 3) {
     }
     
     return $encheres;
+}
+
+
+/**
+ * Recherche des enchères selon plusieurs critères
+ */
+public function rechercherEncheres($terme = '', $annee = '', $pays = '', $condition = '', $couleur = '') {
+    $sql = "SELECT e.*, 
+                   t.nom as nom_timbre,
+                   t.date_creation,
+                   t.certifie,
+                   p.nom_pays, 
+                   c.nom_condition, 
+                   co.nom_couleur,
+                   u.nom_utilisateur,
+                   (SELECT chemin_image FROM images_timbres WHERE id_timbre = t.id_timbre ORDER BY ordre_affichage LIMIT 1) as premiere_image,
+                   (SELECT MAX(montant) FROM mises WHERE id_enchere = e.id_enchere) as mise_actuelle,
+                   (SELECT COUNT(*) FROM mises WHERE id_enchere = e.id_enchere) as nombre_mises
+            FROM encheres e
+            LEFT JOIN timbres t ON e.id_timbre = t.id_timbre
+            LEFT JOIN pays p ON t.id_pays_origine = p.id_pays
+            LEFT JOIN conditions c ON t.id_condition = c.id_condition  
+            LEFT JOIN couleurs co ON t.id_couleur = co.id_couleur
+            LEFT JOIN utilisateurs u ON t.id_utilisateur_createur = u.id_utilisateur
+            WHERE 1=1";
+    
+    $params = [];
+    
+    // Filtre par terme de recherche
+    if (!empty($terme)) {
+        $sql .= " AND (t.nom LIKE :terme 
+                  OR p.nom_pays LIKE :terme 
+                  OR t.date_creation LIKE :terme 
+                  OR c.nom_condition LIKE :terme
+                  OR co.nom_couleur LIKE :terme)";
+        $params[':terme'] = '%' . $terme . '%';
+    }
+    
+    // Filtre par année
+    if (!empty($annee)) {
+        $sql .= " AND t.date_creation = :annee";
+        $params[':annee'] = $annee;
+    }
+    
+    // Filtre par pays
+    if (!empty($pays)) {
+        $sql .= " AND p.id_pays = :pays";
+        $params[':pays'] = $pays;
+    }
+    
+    // Filtre par condition
+    if (!empty($condition)) {
+        $sql .= " AND c.id_condition = :condition";
+        $params[':condition'] = $condition;
+    }
+    
+    // Filtre par couleur
+    if (!empty($couleur)) {
+        $sql .= " AND co.id_couleur = :couleur";
+        $params[':couleur'] = $couleur;
+    }
+    
+    $sql .= " ORDER BY e.date_debut DESC";
+    
+    $stmt = $this->prepare($sql);
+    
+    foreach ($params as $key => $value) {
+        $stmt->bindValue($key, $value);
+    }
+    
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
+/**
+ * Récupère les options pour les filtres
+ */
+public function getOptionsFiltres() {
+    $options = [];
+    
+    // Années disponibles
+    $sql = "SELECT DISTINCT date_creation as annee FROM timbres ORDER BY annee DESC";
+    $stmt = $this->query($sql);
+    $options['annees'] = $stmt ? $stmt->fetchAll() : [];
+    
+    // Pays
+    $sql = "SELECT id_pays, nom_pays FROM pays ORDER BY nom_pays";
+    $stmt = $this->query($sql);
+    $options['pays'] = $stmt ? $stmt->fetchAll() : [];
+    
+    // Conditions
+    $sql = "SELECT id_condition, nom_condition FROM conditions ORDER BY nom_condition";
+    $stmt = $this->query($sql);
+    $options['conditions'] = $stmt ? $stmt->fetchAll() : [];
+    
+    // Couleurs
+    $sql = "SELECT id_couleur, nom_couleur FROM couleurs ORDER BY nom_couleur";
+    $stmt = $this->query($sql);
+    $options['couleurs'] = $stmt ? $stmt->fetchAll() : [];
+    
+    return $options;
 }
 
 }

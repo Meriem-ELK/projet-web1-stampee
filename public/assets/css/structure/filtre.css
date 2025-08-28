@@ -5,16 +5,26 @@
     align-items: center;
     gap: var(--espace-md);
     justify-content: space-between;
-    margin-bottom: var(--espace-xl);
+    margin-bottom: var(--espace-md);
     padding: var(--espace-md);
     border-radius: var(--radius-md);
     background: var(--gris-clair);
+    min-width: 100%;
+
+    & .btn-recherche{
+        min-width: 100%;
+        font-size: 18px;
+
+        & .fas { font-size: 16px;}
+    }
+
 }
 
 .filtre-groupe {
     display: flex;
     align-items: center;
     gap: var(--espace-xs);
+    &:last-child{min-width: 100%;}
 }
 
 .filtre-label {

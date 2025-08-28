@@ -130,7 +130,10 @@
             text-decoration: underline; 
             font-size: 14px;
         }
-        & .info { text-decoration: none;}
+        & .info { 
+            text-decoration: none;
+            padding-bottom: var(--espace-md);
+        }
 }
 
 /* (Status) */
@@ -188,5 +191,57 @@
             font-size: var(--taille-texte-300);
             font-weight: 600;
             color: var(--accent-rouge);
+        }
+}
+
+/* Style pour le bouton favori sur les cartes */
+.carte-image .carte-favoris {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 5;
+}
+
+.carte-image .btn-favori {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.carte-image .btn-favori-inactive {
+    color: #6c757d;
+    border:1px solid  #6c757d;
+        & .fa-heart:before{
+            color:#6c757d;;
+        }
+        &:hover{
+            border:1px solid var(--accent-rouge);
+            color: #dc3545;
+            background-color:var(--blanc);
+            & .fa-heart:before{
+                color:#dc3545;
+                cursor: pointer;
+            }
+        }
+        
+}
+
+.carte-image .btn-favori-active {
+    color: #dc3545;
+    background-color:var(--blanc);
+    border:1px solid var(--accent-rouge);
+        &:hover{
+            color: #6c757d;
+            background-color:var(--blanc);
+            border:1px solid  #6c757d;
+            & .fa-heart:before{
+                color: #6c757d;
+            }
         }
 }

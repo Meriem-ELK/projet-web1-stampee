@@ -7,10 +7,29 @@
         <ul>
             <li><a href="{{base}}">Accueil</a></li>
             <li><a href="{{base}}/enchere">Enchères</a></li>
-            <li><a href="{{base}}/enchere">Enchères Actives</a></li>
             <li>{{ enchere.nom_timbre }}</li>
         </ul>
     </nav>
+
+                <!-- Affichage des erreurs/succès -->
+                {% if errors is defined and errors is not empty %}
+                <div id="notification-message">
+                            {% if errors.success is defined %}
+                                <div class="success">
+                                    {{ errors.success }}
+                                </div>
+                            {% else %}
+                                <div class="error">
+                                    {% for field, message in errors %}
+                                        <div class="error-item">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                </div>
+                {% endif %}
+
 
     <!-- Grille principale -->
     <div class="grille_detail">
@@ -22,12 +41,16 @@
             <div class="galerie-enchere">
                 <div class="zoom">
                     <picture>
-                        <img src="{{base}}/public/assets/img/timbres/{{ images[0].chemin_image }}" 
-                             alt="{{ enchere.nom_timbre }}" id="imageZoom">
+                        <!-- Image principale affichée -->
+                        <img id="imageZoom"
+                            src="{{base}}/public/assets/img/timbres/{{ images[0].chemin_image }}"
+                            alt="{{ enchere.nom_timbre }}"
+                            data-fancybox="galerie"
+                            data-caption="{{ enchere.nom_timbre }}">
                     </picture>
 
                     <!-- Bouton plein écran (zoom) -->
-                    <button class="zoom-btn" title="Plein écran">
+                    <button class="zoom-btn" id="fullscreenBtn" title="Plein écran">
                         <i class="fas fa-expand"></i>
                     </button>
                 </div>
@@ -49,7 +72,7 @@
             <!-- Nom du timbre -->
             <h2>{{ enchere.nom_timbre }}</h2>
 
-            <!-- Détails du timbre (métadonnées) -->
+            <!-- Détails du timbre -->
             <div class="carte-detaills">
                 <div class="grille-meta">
 
@@ -151,7 +174,11 @@
               
                 <!-- Prix actuel -->
                 <div class="carte_fiche-prix">
-                    <div class="label"> Prix de départ </div>
+                    {% if tempsRestant.fini %}
+                        <div class="label"> Prix final</div>
+                    {% else %}
+                        <div class="label"> Prix actuel </div>
+                    {% endif %}
                     <div class="prixActuelle">
                         £{{ enchere.mise_actuelle ? enchere.mise_actuelle : enchere.prix_plancher }}
                     </div>
@@ -164,8 +191,36 @@
                         <div class="temps">{{ tempsRestant.texte }}</div>
                     </div>
                 {% endif %}
+ 
+                <!-- Formulaire d'offre (si utilisateur connecté et enchère active) -->
+                {% if not guest and not tempsRestant.fini %}
+                    <form class="form-enchere" action="{{base}}/mise/store" method="post">
+                        <input type="hidden" name="id_enchere" value="{{ enchere.id_enchere }}">
+                        <input type="number" class="input" name="montant"  placeholder="Entrez votre offre"> 
+                        
+                        <button type="submit" class="btn">
+                            <i class="fas fa-gavel"></i>
+                            Placer une enchère
+                        </button>
+                    </form>
+                    
+                    <div class="info">
+                        Enchère minimum: £{{ (enchere.mise_actuelle ? enchere.mise_actuelle + 1 : enchere.prix_plancher) }}
+                    </div>
+                {% endif %}
 
-              
+
+                <!-- Bouton suivre enchère -->
+                {% if not guest %}
+                    <div class="carte-actions">
+                        <a href="{{base}}/favoris/switch?id_enchere={{ enchere.id_enchere }}" 
+                        class="btn {{ estFavori ? 'btn-favori-active' : 'btn-favori' }}">
+                            <i class="fas fa-heart"></i>
+                            {{ estFavori ? 'Ne plus suivre cette enchère' : 'Suivre cette enchère' }}
+                        </a>
+                    </div>
+                {% endif %}
+
             </div>
 
             <!-- Carte de connexion (si utilisateur non connecté) -->
@@ -220,6 +275,8 @@
                 </div>
 
             </div>
+
+           
 
         </aside>
         

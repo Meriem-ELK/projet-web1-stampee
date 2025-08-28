@@ -6,6 +6,8 @@ use App\Providers\Auth;
 use App\Providers\Validator;
 use App\Models\User;
 use App\Models\Timbre; 
+use App\Models\Favoris; 
+use App\Models\Mise;
 
 class ProfilController{
     
@@ -14,18 +16,45 @@ public function index(){
     
     $user = new User();
     $timbre = new Timbre();
+    $favoris = new Favoris(); 
+    $mise = new Mise(); 
+
+    // Récupérer les erreurs de session s'il y en a
+    $errors = [];
+    if (isset($_SESSION['profil_errors'])) {
+        $errors = $_SESSION['profil_errors'];
+        unset($_SESSION['profil_errors']); // Nettoyer après récupération
+    }
     
     // Récupérer les données de l'utilisateur par son ID
     $utilisateur = $user->selectId($_SESSION['id_utilisateur']);
     
     // Récupérer tous les timbres créés par cet utilisateur
     $mesTimbres = $timbre->getTimbresByUser($_SESSION['id_utilisateur']);
+
+    // Récupérer les enchères favorites de l'utilisateur
+    $mesFavoris = $favoris->getFavorisByUser($_SESSION['id_utilisateur']);
+
+    // Récupérer toutes les offres de l'utilisateur
+    $mesOffres = $mise->getMisesByUser($_SESSION['id_utilisateur']);
+    
+    // Récupérer les enchères où l'utilisateur est en tête
+    $encheresEnTete = $mise->getEncheresEnTete($_SESSION['id_utilisateur']);
+
+    // Récupérer les enchères gagnées par l'utilisateur
+    $encheresGagnees = $mise->getEncheresGagnees($_SESSION['id_utilisateur']);
+
     
     // Si l'utilisateur existe dans la base de données
     if($utilisateur){
         return View::render('profil/index', [
+            'errors' => $errors, 
             'utilisateur' => $utilisateur,
-            'mesTimbres' => $mesTimbres 
+            'mesTimbres' => $mesTimbres,
+            'mesFavoris' => $mesFavoris,
+            'mesOffres' => $mesOffres,
+            'encheresEnTete' => $encheresEnTete,
+            'encheresGagnees' => $encheresGagnees
         ]);
     } else {
         return View::render('error', ['message'=>"Erreur - Utilisateur introuvable."]);

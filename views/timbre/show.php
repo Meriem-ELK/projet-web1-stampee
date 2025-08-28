@@ -19,30 +19,35 @@
             
             <!-- Galerie d'images avec zoom -->
             <div class="galerie-enchere">
-                <div class="zoom">
+             <div class="zoom">
                     <picture>
-                        <img src="{{base}}/public/assets/img/timbres/{{ images[0].chemin_image }}" 
-                             alt="{{ timbre.nom }}" id="imageZoom">
+                        <!-- Image principale affichée -->
+                        <img id="imageZoom"
+                            src="{{base}}/public/assets/img/timbres/{{ images[0].chemin_image }}"
+                            alt="{{ timbre.nom }}"
+                            data-fancybox="galerie"
+                            data-caption="{{ timbre.nom }}">
                     </picture>
 
-                    <!-- Bouton plein écran (zoom) -->
-                    <button class="zoom-btn" title="Plein écran">
+                    <!-- Bouton plein écran -->
+                    <button class="zoom-btn" id="fullscreenBtn" title="Plein écran">
                         <i class="fas fa-expand"></i>
                     </button>
                 </div>
 
                 <span class="show">Pointez sur l'image pour zoomer</span>
 
-                <!-- Miniatures sous l'image principale -->
+                <!-- Miniatures -->
                 <div class="galerie-min">
                     {% for image in images %}
                         <div class="galerie-miniature {{ loop.first ? 'active' : '' }}" 
-                             onclick="changeImage('{{base}}/public/assets/img/timbres/{{ image.chemin_image }}')">
+                            onclick="changeImage('{{base}}/public/assets/img/timbres/{{ image.chemin_image }}', this)">
                             <img src="{{base}}/public/assets/img/timbres/{{ image.chemin_image }}" 
-                                 alt="{{ timbre.nom }} - Image {{ loop.index }}">
+                                alt="{{ timbre.nom }} - Image {{ loop.index }}">
                         </div>
                     {% endfor %}
                 </div>
+
             </div>
             
             <!-- Nom du timbre -->

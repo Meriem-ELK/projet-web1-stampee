@@ -52,6 +52,17 @@
                                         <!-- Image du timbre -->
                                             <img src="{{base}}/public/assets/img/timbres/{{ enchere.premiere_image }}" 
                                                 alt="{{ enchere.nom_timbre }}">
+
+                                        <!-- Ajouter/retirer la Favoris -->
+                                                {% if not guest %}
+                                                    <div class="carte-favoris">
+                                                        <a href="{{base}}/favoris/switch?id_enchere={{ enchere.id_enchere }}" 
+                                                        class="btn-favori {{ enchere.est_favori ? 'btn-favori-active' : 'btn-favori-inactive' }}"
+                                                        title="{{ enchere.est_favori ? 'Retirer des favoris' : 'Ajouter aux favoris' }}">
+                                                            <i class="fas fa-heart"></i>
+                                                        </a>
+                                                    </div>
+                                                {% endif %}  
                                     </div>
                                     
                                     <div class="carte-contenu">
@@ -80,7 +91,7 @@
                                         
                                         <div class="carte-info">
                                             <div class="carte-prix">
-                                                £{{ enchere.prix_plancher }}
+                                                £{{ enchere.mise_actuelle ? enchere.mise_actuelle : enchere.prix_plancher }}
                                             </div>
                                             <div class="carte-temps">
                                                 {{ enchere.temps_restant.texte }}
@@ -100,12 +111,11 @@
                                                     <i class="fas fa-sign-in-alt"></i>
                                                     Se connecter
                                                 </button>
+                                                <button class="btn voir" onclick="location.href='{{base}}/enchere/show?id={{ enchere.id_enchere }}'">
+                                                    <i class="fas fa-eye"></i>
+                                                    Voir les détails
+                                                </button>
                                             {% endif %}
-                                            
-                                            <button class="btn voir" onclick="location.href='{{base}}/enchere/show?id={{ enchere.id_enchere }}'">
-                                                <i class="fas fa-eye"></i>
-                                                Voir l'enchère
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
