@@ -479,6 +479,48 @@ input[type="radio"]:checked::before {
 
 
 .status-winning{ 
-    color: var(--separateur); 
+    color: white;
     font-weight: bold;
+    border: 5px;
+    background: var(--separateur);
+    padding: var(--espace-xs);
+}
+.btn-tab.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.current-images{margin-bottom: 20px;}
+
+.image-item{
+    display: inline-block; 
+    margin: 5px; 
+    position: relative;
+}
+
+.image-item img{
+    max-height:80px; 
+    border:1px solid #ddd;
+}
+
+.btn-delete-image{position: absolute; 
+    top: -5px; right: -5px; 
+    background: red;
+    color: white; 
+    border: none; 
+    border-radius: 50%; 
+    width: 20px; 
+    height: 20px; 
+    cursor: pointer; 
+    font-size: 12px;
+}
+
+.status-won {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.stat-winning {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #8b7300;
 }

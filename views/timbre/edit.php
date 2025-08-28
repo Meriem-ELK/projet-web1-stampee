@@ -131,42 +131,41 @@
             
             <div class="form-group">
                 {% if images is defined and images|length > 0 %}
-                    <p>Images actuelles ({{ images|length }}) :</p>
-                    <div class="current-images" style="margin-bottom: 20px;">
+                    <p>Images actuelles ({{ images|length }}/5) :</p>
+                    <div class="current-images">
                         {% for image in images %}
-                            <img src="{{base}}/public/assets/img/timbres/{{ image.chemin_image }}" 
-                                 style="max-height:80px; margin-right:10px; border:1px solid #ddd;" 
-                                 alt="Image du timbre">
+                            <div class="image-item">
+                                <img src="{{base}}/public/assets/img/timbres/{{ image.chemin_image }}" alt="Image du timbre">
+                                <!-- Bouton pour supprimer une image spécifique -->
+                                <button type="button" 
+                                        class="btn-delete-image" 
+                                        data-image-id="{{ image.id_image }}">×</button>
+                            </div>
                         {% endfor %}
                     </div>
-                {% else %}
-                    <p>Aucune image actuellement.</p>
+
+                    <!-- Champ caché pour stocker les IDs des images à supprimer -->
+                    <input type="hidden" name="images_to_delete" id="images_to_delete" value="">
+
+                      <!-- Bouton pour supprimer toutes les images -->
+            <!-- <button type="button" id="btn-delete-all-images" class="btn" 
+                    style="background: #dc3545; color: white; margin-bottom: 15px;">
+                <i class="fas fa-trash"></i> Supprimer toutes les images
+            </button> -->
+
+            
                 {% endif %}
 
-                <p><strong>Gestion des images :</strong></p>
-
-                <div style="margin-bottom: 15px;">
-                    <label style="display: block; margin-bottom: 10px;">
-                        <input type="radio" name="image_action" value="keep" checked style="margin-right: 8px;">
-                        Garder les images existantes uniquement
-                    </label>
-
-                    <label style="display: block; margin-bottom: 10px;">
-                        <input type="radio" name="image_action" value="add" style="margin-right: 8px;">
-                        Ajouter de nouvelles images (max 5 au total)
-                    </label>
-
-                    <label style="display: block; margin-bottom: 10px;">
-                        <input type="radio" name="image_action" value="replace" style="margin-right: 8px;">
-                        Remplacer toutes les images existantes (max 5 nouvelles)
-                    </label>
-                </div>
-
-                <div id="file-input-container" style="display: none;">
-                    <input type="file" name="images[]" multiple accept="image/*" class="form-input">
-                    <small>Formats acceptés: JPG, PNG, GIF, WEBP (max 5MB par fichier)</small>
-                </div>
-            </div>
+        <!-- Zone pour ajouter de nouvelles images -->
+        <div class="add-images-section" style="border-top: 1px solid #ddd; padding-top: 15px;">
+            <label class="form-label">Ajouter des images (max 5 au total)</label>
+            <input type="file" name="images[]" multiple accept="image/*" class="form-input" onchange="previewImages(this)">
+            <small>Formats acceptés: JPG, PNG, GIF, WEBP (max 5MB par fichier)</small>
+            
+            <!-- Zone de prévisualisation -->
+            <div id="imagePreview" style="margin-top: 10px;"></div>
+        </div>
+    </div>
         </div>
 
         <!-- Boutons d'action -->

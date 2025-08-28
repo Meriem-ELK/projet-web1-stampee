@@ -41,6 +41,9 @@ public function index(){
     // Récupérer les enchères où l'utilisateur est en tête
     $encheresEnTete = $mise->getEncheresEnTete($_SESSION['id_utilisateur']);
 
+    // Récupérer les enchères gagnées par l'utilisateur
+    $encheresGagnees = $mise->getEncheresGagnees($_SESSION['id_utilisateur']);
+
     
     // Si l'utilisateur existe dans la base de données
     if($utilisateur){
@@ -50,7 +53,8 @@ public function index(){
             'mesTimbres' => $mesTimbres,
             'mesFavoris' => $mesFavoris,
             'mesOffres' => $mesOffres,
-            'encheresEnTete' => $encheresEnTete
+            'encheresEnTete' => $encheresEnTete,
+            'encheresGagnees' => $encheresGagnees
         ]);
     } else {
         return View::render('error', ['message'=>"Erreur - Utilisateur introuvable."]);

@@ -134,4 +134,34 @@ class Mise extends CRUD {
         
         return $stmt->fetchAll();
     }
+
+
+    /**
+     * Récupère les enchères gagnées par un utilisateur
+    */
+    public function getEncheresGagnees($id_utilisateur) {
+        $sql = "SELECT DISTINCT e.id_enchere, 
+                   e.prix_plancher,
+                   e.date_debut,
+                   e.date_fin,
+                   e.coup_coeur_lord,
+                   t.nom as nom_timbre,
+                   p.nom_pays,
+                   (SELECT chemin_image FROM images_timbres WHERE id_timbre = t.id_timbre ORDER BY ordre_affichage LIMIT 1) as premiere_image,
+                   (SELECT MAX(m2.montant) FROM mises m2 WHERE m2.id_enchere = e.id_enchere) as mise_actuelle
+            FROM mises m
+            LEFT JOIN encheres e ON m.id_enchere = e.id_enchere
+            LEFT JOIN timbres t ON e.id_timbre = t.id_timbre
+            LEFT JOIN pays p ON t.id_pays_origine = p.id_pays
+            WHERE m.id_utilisateur = :id_utilisateur
+            AND m.montant = (SELECT MAX(m3.montant) FROM mises m3 WHERE m3.id_enchere = e.id_enchere)
+            AND e.date_fin < NOW()
+            ORDER BY e.date_fin DESC";
+    
+        $stmt = $this->prepare($sql);
+        $stmt->bindValue(':id_utilisateur', $id_utilisateur);
+        $stmt->execute();
+        
+        return $stmt->fetchAll();
+    }
 }

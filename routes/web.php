@@ -43,6 +43,7 @@ Route::post('/timbre/delete', 'TimbreController@delete');
 
 // Routes Enchere
 Route::get('/enchere', 'EnchereController@index');
+Route::get('/enchere/index', 'EnchereController@index');
 Route::get('/enchere/show', 'EnchereController@show');
 
 // Routes Favoris
@@ -50,5 +51,6 @@ Route::get('/favoris/switch', 'FavorisController@switchFavoris');
 
 // Routes Mise/Offre
 Route::post('/mise/store', 'MiseController@store');
+
 
 Route::dispatch();

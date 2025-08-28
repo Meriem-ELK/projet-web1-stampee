@@ -9,14 +9,33 @@ use App\Models\Favoris;
 class EnchereController {
 
     public function index() {
-
         $enchere = new Enchere;
-        $encheres = $enchere->getEncheresWithDetails();
         
-       // Le temps restant à chaque enchère
+        // Récupérer tous les paramètres de recherche et filtres
+        $recherche = isset($_GET['recherche']) ? trim($_GET['recherche']) : '';
+        $annee = isset($_GET['annee']) ? $_GET['annee'] : '';
+        $pays = isset($_GET['pays']) ? $_GET['pays'] : '';
+        $condition = isset($_GET['condition']) ? $_GET['condition'] : '';
+        $couleur = isset($_GET['couleur']) ? $_GET['couleur'] : '';
+        
+        // Appliquer les filtres et la recherche
+            if (!empty($recherche) || !empty($annee) || !empty($pays) || !empty($condition) || !empty($couleur)) {
+                // Recherche avec filtres
+                $encheres = $enchere->rechercherEncheres($recherche, $annee, $pays, $condition, $couleur);
+            } else {
+                // Pas de recherche, on récupère toutes les enchères
+                $encheres = $enchere->getEncheresWithDetails();
+            }
+        
+        // Récupérer les options pour les filtres
+        $optionsFiltres = $enchere->getOptionsFiltres();
+        
+        // Le temps restant à chaque enchère
         foreach ($encheres as &$uneEnchere) {
             $uneEnchere['temps_restant'] = $enchere->calculerTempsRestant($uneEnchere['date_fin']);
         
+            // Déterminer le statut basé sur le temps restant
+            $uneEnchere['statut_enchere'] = $uneEnchere['temps_restant']['fini'] ? 'termine' : 'active';
 
             //Vérifier si l'utilisateur connecté a cette enchère en favori
             $uneEnchere['est_favori'] = false;
@@ -26,9 +45,14 @@ class EnchereController {
             }
         }
         
-
         return View::render('enchere/index', [
-            'encheres' => $encheres
+            'encheres' => $encheres,
+            'recherche' => $recherche,
+            'annee' => $annee,
+            'pays' => $pays,
+            'condition' => $condition,
+            'couleur' => $couleur,
+            'optionsFiltres' => $optionsFiltres
         ]);
     }
 

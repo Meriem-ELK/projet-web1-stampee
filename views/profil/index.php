@@ -113,14 +113,14 @@
 
                                 <!-- Mon offre -->
                                 <td class="price">
-                                    <strong>£{{ offre.montant }}</strong>
+                                    £{{ offre.montant }}
                                     <br>
                                     <small>{{ offre.date_mise|date('d/m/Y H:i') }}</small>
                                 </td>
 
                                 <!-- Prix actuel -->
                                 <td class="price">
-                                    £ {{ offre.mise_actuelle }}
+                                    <strong>£ {{ offre.mise_actuelle }}</strong>
                                 </td>
 
                                 <!-- Statut de l'offre -->
@@ -175,8 +175,6 @@
                         </button>
                 </div>
 
-
-
             {% else %}
                 <!-- Message si l'utilisateur n'a pas encore fait d'offre -->
                 <div class="empty-collection">
@@ -192,6 +190,103 @@
             {% endif %}
         </div>
     </section>
+
+
+
+    <!-- Section : Enchères gagnées -->
+    <section class="form-control">
+        <div class="profile-section" id="table_encheresGagnees">
+            <h2 class="taille_texte_200">
+                <i class="fas fa-trophy"></i> Mes enchères gagnées
+            </h2>
+
+            <!-- En-tête de la section enchères gagnées -->
+            <div class="section-header">
+                {% if encheresGagnees|length > 0 %}
+                    <span class="stat-badge stat-winning">
+                        <i class="fas fa-trophy"></i>
+                        <strong>{{ encheresGagnees|length }}</strong> 
+                        enchère{{ encheresGagnees|length > 1 ? 's' : '' }} gagnée{{ encheresGagnees|length > 1 ? 's' : '' }}
+                    </span>
+                {% endif %}
+            </div>
+
+            {% if encheresGagnees is defined and encheresGagnees|length > 0 %}
+                <div class="timbres-table-container">
+                    <table class="timbres-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Timbre</th>
+                                <th>Prix final</th>
+                                <th>Date de fin</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for gagnee in encheresGagnees %}
+                            <tr class="timbre-row encheresGagnees">
+                                <td class="timbre-thumb">
+                                    {% if gagnee.premiere_image %}
+                                        <img src="{{base}}/public/assets/img/timbres/{{ gagnee.premiere_image }}" 
+                                            alt="{{ gagnee.nom_timbre }}" class="thumb-img">
+                                    {% else %}
+                                        <div class="thumb-placeholder">
+                                            <i class="fas fa-image"></i>
+                                        </div>
+                                    {% endif %}
+                                </td>
+
+                                <td class="timbre-name">
+                                    <strong>{{ gagnee.nom_timbre }}</strong>
+                                    <br>
+                                    <small class="country-tag">{{ gagnee.nom_pays }}</small>
+                                </td>
+
+                                <td class="price">
+                                    <strong>£{{ gagnee.mise_actuelle }}</strong>
+                                </td>
+
+                                <td>
+                                    {{ gagnee.date_fin|date('d/m/Y H:i') }}
+                                </td>
+
+                                <td>
+                                    <span class="status-winning">
+                                        <i class="fas fa-trophy"></i> Gagnant
+                                    </span>
+                                </td>
+
+                                <td class="actions">
+                                    <div class="action-buttons">
+                                        <a href="{{base}}/enchere/show?id={{gagnee.id_enchere}}"
+                                        class="action-btn view" title="Voir l'enchère">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty-collection">
+                    <div class="empty-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h4>Vous n'avez pas encore gagné d'enchère</h4>
+                    <p>Continuez à enchérir pour remporter vos premiers timbres.</p>
+                    <a href="{{base}}/enchere" class="btn btn-content">
+                        <i class="fas fa-search"></i> Parcourir les enchères
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+
 
     <!-- Section : Collection de timbres -->
     <section class="form-control">
@@ -390,7 +485,7 @@
 
                                 <!-- Prix actuel -->
                                 <td class="price">
-                                    £{{ favori.mise_actuelle ? favori.mise_actuelle : favori.prix_plancher }}
+                                    <strong>£{{ favori.mise_actuelle ? favori.mise_actuelle : favori.prix_plancher }}</strong>
                                 </td>
 
                                 <!-- Temps restant -->

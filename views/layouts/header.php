@@ -77,10 +77,13 @@
                         </div>
                     </a>
                     <div class="recherche-container">
-                        <form class="recherche-form" role="search">
-                            <input type="text" class="recherche-input" placeholder="Rechercher par pays, année, condition, référence..." aria-label="Trouver rapidement une enchère" >
+                        
+                        <!-- Formulaire de recherche -->
+                        <form method="get" action="{{ base }}/enchere" class="recherche-form">
+                            <input type="text" name="recherche" class="recherche-input" placeholder="Rechercher une enchère..." value="{{ recherche }}"  aria-label="Rechercher une enchère">
                             <button type="submit" class="btn btn-recherche">Rechercher</button>
                         </form>
+
                     </div>
                 </div>
             </div>

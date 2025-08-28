@@ -15,17 +15,6 @@ window.addEventListener('scroll', function() {
     }
 });
 
-
-// window.addEventListener('DOMContentLoaded', function () {
-//         const notification = document.getElementById('notification-message');
-//         if (notification) {
-//             window.scrollTo({
-//                 top: notification.offsetTop - 20,
-//                 behavior: 'smooth'
-//             });
-//         }
-//     });
-
 // Prévisualisation des images
 function previewImages(input) {
     const previewContainer = document.getElementById('imagePreview');
@@ -141,44 +130,6 @@ function changeImage(newSrc, element) {
     element.classList.add('active');
 }
 
-// Affichage/masquage du champ fichier
-document.addEventListener('DOMContentLoaded', function() {
-    const radioButtons = document.querySelectorAll('input[name="image_action"]');
-    const fileInputContainer = document.getElementById('file-input-container');
-    const fileInput = document.querySelector('input[name="images[]"]');
-    
-    function toggleFileInput() {
-        const checkedRadio = document.querySelector('input[name="image_action"]:checked');
-        
-        // Vérifier si un bouton radio est coché
-        if (checkedRadio) {
-            const selectedValue = checkedRadio.value;
-            
-            if (selectedValue === 'add' || selectedValue === 'replace') {
-                fileInputContainer.style.display = 'block';
-                fileInput.required = true;
-            } else {
-                fileInputContainer.style.display = 'none';
-                fileInput.required = false;
-                fileInput.value = ''; // Vider la sélection
-            }
-        } else {
-            // Si aucun bouton radio n'est coché, masquer par défaut
-            fileInputContainer.style.display = 'none';
-            fileInput.required = false;
-            fileInput.value = '';
-        }
-    }
-    
-    radioButtons.forEach(radio => {
-        radio.addEventListener('change', toggleFileInput);
-    });
-    
-    // Initialisation seulement si les éléments existent
-    if (radioButtons.length > 0 && fileInputContainer && fileInput) {
-        toggleFileInput();
-    }
-});
 
 // Confirmation pour retirer des favoris
 document.addEventListener('DOMContentLoaded', function() {
@@ -312,4 +263,207 @@ document.addEventListener("DOMContentLoaded", function () {
     tablesConfig.forEach(config => {
         initTablePagination(config);
     });
+});
+
+// Gestion des onglets Enchères Actives / Archivées
+document.addEventListener('DOMContentLoaded', function() {
+
+    // Fonction pour mettre à jour le nombre total d'enchères
+    function mettreAJourResultats() {
+        const resultNbr = document.querySelector('.resultat-nbr');
+        if (!resultNbr) return;
+
+        const cartes = document.querySelectorAll('.carte');
+        let totalActives = 0;
+        let totalArchivees = 0;
+
+        cartes.forEach(carte => {
+            const typeEnchere = carte.getAttribute('data-type');
+            if (typeEnchere === 'active') totalActives++;
+            if (typeEnchere === 'termine') totalArchivees++;
+        });
+
+        const total = totalActives + totalArchivees;
+        resultNbr.innerHTML = `<strong>${total}</strong> enchères trouvées (<strong>${totalActives} actives</strong>, <strong>${totalArchivees} archivées</strong>)`;
+    }
+
+    // Fonction pour filtrer les enchères selon le type
+    function filtrerEncheres(type) {
+        const cartes = document.querySelectorAll('.carte');
+        const grille = document.querySelector('.grille');
+        let compteur = 0;
+
+        // Retirer le message "no-results" s'il existe
+        const messageExistant = grille.querySelector('.no-results');
+        if (messageExistant) messageExistant.remove();
+
+        cartes.forEach(carte => {
+            const typeEnchere = carte.getAttribute('data-type');
+            if (typeEnchere === type) {
+                carte.style.display = 'block';
+                compteur++;
+            } else {
+                carte.style.display = 'none';
+            }
+        });
+
+        // Si aucune enchère trouvée, afficher un message
+        if (compteur === 0) {
+            const message = document.createElement('div');
+            message.className = 'no-results';
+            message.innerHTML = `
+                <h3 class="taille_texte_300">Aucune enchère ${type === 'active' ? 'en cours' : 'archivée'}</h3>
+                <p>Il n'y a actuellement aucune enchère ${type === 'active' ? 'active' : 'terminée'}.</p>
+            `;
+            grille.appendChild(message);
+        }
+
+        mettreAJourResultats();
+    }
+
+    // Gestion des onglets
+    const tabButtons = document.querySelectorAll('.btn-tab');
+    const grille = document.querySelector('.grille');
+
+    if (tabButtons.length > 0 && grille) {
+        filtrerEncheres('active'); // afficher par défaut
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+
+                const type = this.getAttribute('data-tab');
+                filtrerEncheres(type);
+            });
+        });
+    }
+});
+
+
+// Fonction de tri des cartes par prix
+document.addEventListener('DOMContentLoaded', function() {
+    const triSelect = document.querySelector('.tri-select');
+    const grille = document.querySelector('.grille');
+    
+    if (triSelect && grille) {
+        triSelect.addEventListener('change', function() {
+            const ordre = this.selectedIndex; // 0 = croissant, 1 = décroissant
+            trierCartes(ordre);
+        });
+    }
+    
+    function trierCartes(ordre) {
+        const grille = document.querySelector('.grille');
+        if (!grille) return;
+        
+        // Récupérer toutes les cartes visibles (non masquées par les onglets)
+        const cartes = Array.from(grille.querySelectorAll('.carte')).filter(carte => {
+            return carte.style.display !== 'none';
+        });
+        
+        // Sauvegarder les cartes masquées pour les réinsérer à la fin
+        const cartesMasquees = Array.from(grille.querySelectorAll('.carte')).filter(carte => {
+            return carte.style.display === 'none';
+        });
+        
+        // Sauvegarder les autres éléments (no-results, etc.)
+        const autresElements = Array.from(grille.children).filter(element => {
+            return !element.classList.contains('carte');
+        });
+        
+        // Trier les cartes visibles par prix
+        cartes.sort((a, b) => {
+            const prixA = parseFloat(a.getAttribute('data-prix')) || 0;
+            const prixB = parseFloat(b.getAttribute('data-prix')) || 0;
+            
+            if (ordre === 0) {
+                // Tri croissant
+                return prixA - prixB;
+            } else {
+                // Tri décroissant
+                return prixB - prixA;
+            }
+        });
+        
+        // Vider la grille
+        grille.innerHTML = '';
+        
+        // Réinsérer les cartes triées
+        cartes.forEach(carte => {
+            grille.appendChild(carte);
+        });
+        
+        // Réinsérer les cartes masquées
+        cartesMasquees.forEach(carte => {
+            grille.appendChild(carte);
+        });
+        
+        // Réinsérer les autres éléments
+        autresElements.forEach(element => {
+            grille.appendChild(element);
+        });
+    }
+});
+
+
+// Gestion des images dans la page d'édition
+document.addEventListener('DOMContentLoaded', function() {
+    // Vérifier si nous sommes sur la page d'édition
+    const deleteImageButtons = document.querySelectorAll('.btn-delete-image');
+    const imagesToDeleteField = document.getElementById('images_to_delete');
+   
+    let imagesToDelete = []; // Tableau pour stocker les IDs des images à supprimer
+    
+    // Supprimer une image spécifique
+    deleteImageButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette image ?')) {
+                const imageId = this.getAttribute('data-image-id');
+                const imageContainer = this.closest('.image-item');
+                
+                // Ajouter l'ID à la liste des images à supprimer
+                imagesToDelete.push(imageId);
+                imagesToDeleteField.value = imagesToDelete.join(',');
+                
+                // Masquer visuellement l'image
+                imageContainer.style.opacity = '0.5';
+                imageContainer.style.pointerEvents = 'none';
+                
+                // Ajouter un badge "Image supprimée"
+                const badge = document.createElement('div');
+                badge.innerHTML = 'Image supprimée';
+                badge.style.cssText = 'position: absolute; top: 0; left: 0; background: red; color: white; padding: 2px 5px; font-size: 10px;';
+                imageContainer.appendChild(badge);
+                
+                // Masquer le bouton de suppression
+                this.style.display = 'none';
+                
+                // Mettre à jour le compteur
+                updateImageCounter();
+            }
+        });
+    });
+    
+
+    
+    // Fonction pour mettre à jour le compteur d'images
+    function updateImageCounter() {
+        const currentImagesText = document.querySelector('p');
+        if (currentImagesText && currentImagesText.textContent.includes('Images actuelles')) {
+            const totalImages = deleteImageButtons.length;
+            const imagesToDeleteCount = imagesToDelete.length;
+            const remainingImages = totalImages - imagesToDeleteCount;
+            
+            currentImagesText.innerHTML = `Images actuelles (${remainingImages}/5) :`;
+            
+            // Mettre à jour le texte de l'input file
+            const fileInput = document.querySelector('input[type="file"]');
+            const label = fileInput.previousElementSibling;
+            if (label) {
+                const maxNew = 5 - remainingImages;
+                label.textContent = `Ajouter des images (max ${maxNew} nouvelles)`;
+            }
+        }
+    }
 });

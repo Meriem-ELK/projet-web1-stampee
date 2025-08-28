@@ -7,7 +7,6 @@
         <ul>
             <li><a href="{{base}}">Accueil</a></li>
             <li><a href="{{base}}/enchere">Enchères</a></li>
-            <li><a href="{{base}}/enchere">Enchères Actives</a></li>
             <li>{{ enchere.nom_timbre }}</li>
         </ul>
     </nav>

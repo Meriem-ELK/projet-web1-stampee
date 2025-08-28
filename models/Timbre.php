@@ -331,6 +331,39 @@ public function deleteTimbreImages($timbreId) {
         return false;
     }
 
+/**
+ * Supprime une image spécifique par son ID
+ */
+public function deleteSpecificImage($imageId) {
+    $uploadDir = 'public/assets/img/timbres/';
+    
+    // D'abord récupérer les informations de l'image
+    $sql = "SELECT chemin_image FROM images_timbres WHERE id_image = :id_image";
+    $stmt = $this->prepare($sql);
+    $stmt->bindValue(':id_image', $imageId);
+    $stmt->execute();
+    
+    $image = $stmt->fetch();
+    if (!$image) {
+        return false; // Image non trouvée en base
+    }
+    
+    // Supprimer le fichier physique du serveur
+    $filePath = $uploadDir . $image['chemin_image'];
+    if (file_exists($filePath)) {
+        unlink($filePath);
+    }
+    
+    // Supprimer l'entrée de la base de données
+    $sql = "DELETE FROM images_timbres WHERE id_image = :id_image";
+    $stmt = $this->prepare($sql);
+    $stmt->bindValue(':id_image', $imageId);
+    
+    return $stmt->execute();
+}
+
+
+
 }
 
 ?>
