@@ -21,7 +21,7 @@
 
 .contenu-principal-hero{
     color: var(--blanc);
-    padding: var(--espace-2xl) 0;
+    padding: var(--espace-lg) 0;
     text-align: center;
     color:var(--bleu-principale) ;
 }
@@ -37,8 +37,8 @@
 
 
 .contenu-principal-herotext {
-    font-size: var(--taille-texte-300);
-    margin-bottom: var(--espace-xl);
+    font-size: clamp(var(--taille-texte-200), 2vw, var(--taille-texte-300));
+    margin-bottom: var(--espace-lg);
     opacity: 0.9;
 }
 
