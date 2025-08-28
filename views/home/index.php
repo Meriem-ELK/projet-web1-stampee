@@ -162,7 +162,7 @@
                                     </p>
 
                                     <div>
-                                        <a href="{{base}}/" class="btn">
+                                        <a href="{{base}}/about" class="btn">
                                             <i class="fas fa-user-tie"></i>
                                             En savoir plus sur le Lord
                                         </a>

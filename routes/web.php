@@ -12,7 +12,6 @@ Route::get('/home', 'HomeController@index');
 Route::get('/home/index', 'HomeController@index');
 
 
-
 // Routes pour les utilisateurs
 Route::get('/user/create', 'UserController@create');
 Route::post('/user/store', 'UserController@store');
@@ -52,5 +51,9 @@ Route::get('/favoris/switch', 'FavorisController@switchFavoris');
 // Routes Mise/Offre
 Route::post('/mise/store', 'MiseController@store');
 
+
+// Routes pour les pages secondaires
+Route::get('/about', 'PageController@about');
+Route::get('/contact', 'PageController@contact');
 
 Route::dispatch();

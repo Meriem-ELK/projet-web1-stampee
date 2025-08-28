@@ -90,3 +90,93 @@
     text-align: center;
     margin: 0 var(--espace-xs);
 }
+
+
+/* Formulaire de contact */
+.form-contact {
+    background: var(--blanc);
+    padding: var(--espace-xl);
+    border-radius: var(--radius-md);
+    box-shadow: var(--ombre-moyenne);
+    border: 1px solid var(--bleu-clair);
+}
+
+.form-contact h3 {
+    font-family: var(--font-titre);
+    font-size: var(--taille-texte-400);
+    color: var(--bleu-principale);
+    margin-bottom: var(--espace-lg);
+    text-align: center;
+}
+
+.form-groupe {
+    margin-bottom: var(--espace-md);
+}
+
+.form-groupe label {
+    display: block;
+    font-weight: 600;
+    color: var(--gris-fonce);
+    margin-bottom: var(--espace-xs);
+    font-size: var(--taille-texte-100);
+}
+
+.form-groupe input,
+.form-groupe select,
+.form-groupe textarea {
+    width: 100%;
+    padding: var(--espace-sm);
+    border: 2px solid var(--bleu-clair);
+    border-radius: var(--radius-sm);
+    font-family: var(--police-principale);
+    font-size: var(--taille-texte-100);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-groupe input:focus,
+.form-groupe select:focus,
+.form-groupe textarea:focus {
+    outline: none;
+    border-color: var(--bleu-principale);
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+}
+
+.form-groupe textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Checkbox style */
+.form-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--espace-xs);
+}
+
+.form-checkbox input[type="checkbox"] {
+    width: auto;
+    margin-top: 3px;
+    accent-color: var(--bleu-principale);
+}
+
+.form-checkbox label {
+    margin-bottom: 0;
+    font-size: var(--taille-texte-50);
+    color: var(--gris-moyen);
+    line-height: 1.4;
+}
+
+/* Actions du formulaire */
+.form-actions {
+    display: flex;
+    gap: var(--espace-sm);
+    justify-content: flex-end;
+    margin-top: var(--espace-lg);
+    flex-wrap: wrap;
+}
+
+.form-actions .btn {
+    min-width: 140px;
+    text-align: center;
+}
+
